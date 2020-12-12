@@ -11,7 +11,7 @@ import org.bukkit.Location;
 import com.xSavior_of_God.ArmorStandLimiter.Utilis;
 
 public class Telegram {
-	private static String message;
+  private static String message;
 	private static String chatID;
 	private static URL url;
 
