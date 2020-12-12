@@ -1,0 +1,13 @@
+name: ArmorStand-Limiter
+main: com.xSavior_of_God.ArmorStandLimiter.Main
+version: "1.0"
+api-version: 1.13
+author: xSavior_of_God
+commands:
+  asl:
+    description: reload the plugin
+    usage:  /asl 
+permissions:
+  armostandlimiter.reload:
+    description: you can reload the plugin if you have this permission
+    default: op

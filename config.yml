@@ -1,0 +1,152 @@
+#                                                                   
+#    /\   _  _   _   _ (_  |_  _   _   _|   |   .  _  . |_  _  _    
+#   /--\ |  ||| (_) |  __) |_ (_| | ) (_|   |__ | ||| | |_ (- |     
+#                                                                   
+#  Developed by xSavior_of_God                                      
+#                                                                   
+#  For SUPPORT                                                      
+#   <Discord/>     https://discord.gg/5UuVdTE                       
+#                                                                   
+#                                                                   
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+
+# How many ArmorStands must there be...
+ArmorStandLimit:
+  # ...in a block to be removed?
+  Block: 
+    # The maximum number of armorstands that can be in a block, 
+    # if higher, all armorstands will be removed!
+    Trigger: 50
+    # Do you want to check every x ('Refersh') minutes if there are more Armor Stands 
+    # than 'ArmorStandLimit' in a block?
+    Task:
+      # Do you want to enable this task?
+      Enabled: true
+      # How often should the check be done? ( Recommended 5 )
+      Refresh: 10
+  # ...in a chunk to be removed?
+  Chunk:
+    # The maximum number of armorstands that can be in a chunk, 
+    # if higher, all armorstands will be removed!
+    Trigger: 256
+    # Do you want to check every x ('Refersh') minutes if there are more Armor Stands 
+    # than 'ArmorStandLimit' in a chunk?
+    Task:
+      # Do you want to enable this task?
+      Enabled: true
+      # How often should the check be done? ( Recommended 5 )
+      Refresh: 10
+
+noPerms: "&cNo perms!"
+
+# TPS Meter will allow you to analyze the tps every tick, 
+# if they are lower than the preset value in 'Trigger' the Armor Stands 
+# will be cleared only if they are more than 'ArmorStandLimit' in a single block
+TPSMeter:
+  # Do you want to enable this feature?
+  Enabled: true
+  # Under how many TPS must the server go down to trigger this event? ( Recommended 17 )
+  Trigger: 17
+
+# Want to be notified whenever Armor Stands are removed?
+Notifications:
+  # This option will allow you to completely disable all notifications, 
+  # if on true, it will only enable them if they are enabled
+  Enabled: true
+
+  # Do you want to receive a message in the console as a notification?
+  Console:
+    Enabled: true
+    # Message format
+    #  
+    # Placeholders:
+    #   {x} => Coordinate X
+    #   {z} => Coordinate Z
+    #   {world} => World Name
+    #   {counter} => Total number of Armor Stands found in that location
+    #   {max} => The value of 'ArmorStandLimit'
+    Message: |
+      &c&l----------------------------
+      &r
+      &eArmorStand Limiter
+      &f
+      &fWorld &e{world}
+      &fX  &e{x}
+      &fZ  &e{z}
+      &fCounter   &c{counter}&f/{max}
+      &r
+      &c&l----------------------------
+
+  # Want to receive an in-game message as a notification?
+  OnlinePlayer:
+    Enabled: true
+    # What is the permission you need to have to receive this notification?
+    Permission: "armostandlimiter.notify"
+    # Message format
+    #  
+    # Placeholders:
+    #   {x} => Coordinate X
+    #   {z} => Coordinate Z
+    #   {world} => World Name
+    #   {counter} => Total number of Armor Stands found in that location
+    #   {max} => The value of 'ArmorStandLimit'
+    Message: |
+      &c&l----------------------------
+      &r
+      &eArmorStand Limiter
+      &f
+      &fWorld &e{world}
+      &fX  &e{x}
+      &fZ  &e{z}
+      &fCounter   &c{counter}&f/{max}
+      &r
+      &c&l----------------------------
+
+  Telegram:
+    Enabled: false
+    # Telegram bot API
+    API: "https://api.telegram.org/bot"
+    # The token of the bot that sends you the notification
+    Token: ""
+    # The unique id of the chat in which the message will be sent
+    ChatID: ""
+    # Message format
+    #  
+    # Placeholders:
+    #   {x} => Coordinate X
+    #   {z} => Coordinate Z
+    #   {world} => World Name
+    #   {counter} => Total number of Armor Stands found in that location
+    #   {max} => The value of 'ArmorStandLimit'
+    Message: |
+      ⚠️ <b>ArmorStand Limiter</b> ⚠️
+      
+      🖼<b>World</b>  <code>{world}</code>
+      🔻<b>x</b>  <code>{x}</code>
+      🔺<b>z</b>  <code>{z}</code>
+      
+      📊<b>Counter</b>  {counter} <code>| {max}</code>
+
+  Discord:
+    Enabled: false
+    # The token of the bot that sends you the notification
+    Webhook: ""
+    # Message format
+    Title: "⚠️ ArmorStand Limiter ⚠️"
+    # Default null characters
+    Description: "󠀀󠀀"
+    # color code, type HEX ("#fff") 
+    Color: "#ffeb3b"
+    # Message format
+    #  
+    # Placeholders:
+    #   {x} => Coordinate X
+    #   {z} => Coordinate Z
+    #   {world} => World Name
+    #   {counter} => Total number of Armor Stands found in that location
+    #   {max} => The value of 'ArmorStandLimit'
+    Message: |
+      🌍 **World**  {world}
+      🔻 **X**  `{x}`
+      🔺 **Z**  `{z}`
+      📊 **Counter**  `{counter}`/{max}
