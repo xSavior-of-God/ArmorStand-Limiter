@@ -38,6 +38,7 @@ ArmorStandLimit:
       Refresh: 10
 
 noPerms: "&cNo perms!"
+tooManyArmorStand: "&c&lHey! &7You can't place it here, there are more than {max} armor stands in this chunk!"
 
 # TPS Meter will allow you to analyze the tps every tick, 
 # if they are lower than the preset value in 'Trigger' the Armor Stands 
@@ -47,6 +48,20 @@ TPSMeter:
   Enabled: true
   # Under how many TPS must the server go down to trigger this event? ( Recommended 17 )
   Trigger: 17
+
+# Various events
+Events:
+  # Do you want to limit the armor stands placed by users in a chunk?
+  # the limit is based on the one set above (ArmorStandLimit -> Chunk -> Trigger)
+  LimitArmorStandPlaceForChunk: false
+  # Do you want to disable armorstand spawning through dispensers?
+  DisableDispenserSpawningArmorstand: false
+  # Do you want to disable the armor stand from moving...
+  DisableArmorStandMoving: false
+    # in water
+    Water: false
+    # pushed by a piston
+    Piston: false
 
 # Want to be notified whenever Armor Stands are removed?
 Notifications:
