@@ -12,8 +12,8 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.json.JSONObject;
 
+import com.xSavior_of_God.ArmorStandLimiter.JSONObject;
 import com.xSavior_of_God.ArmorStandLimiter.Utilis;
 
 
@@ -50,7 +50,7 @@ public class Discord {
 		final String Year = date_format.format(new Date(Time_now));
 		List<JSONObject> jsonArray = new ArrayList<>();
 		JSONObject json = new JSONObject();
-		JSONObject JsonX;
+		JSONObject JsonX; 
 		json.put("title", title);
 		json.put("description", description);
 		Bukkit.getConsoleSender().sendMessage("DIOPORCO "+color);
