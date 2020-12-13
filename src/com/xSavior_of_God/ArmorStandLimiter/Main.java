@@ -17,10 +17,12 @@ public class Main extends JavaPlugin {
   public static Main instance;
   public static int armorStandLimitBlockTrigger, armorStandLimitChunkTrigger, armorStandLimitBlockTaskRefersh,
       armorStandLimitChunkTaskRefersh, TPSMeterTrigger;
-  public static boolean armorStandLimitBlockTaskEnabled, armorStandLimitChunkTaskEnabled, TPSMeterEnabled, LimitArmorStandPlaceForChunk,DisableDispenserSpawningArmorstand, Water;
+  public static boolean armorStandLimitBlockTaskEnabled, armorStandLimitChunkTaskEnabled, TPSMeterEnabled,
+      LimitArmorStandPlaceForChunk, DisableDispenserSpawningArmorstand, EventsDisableArmorStandMovingWater,
+      EventsDisableArmorStandMovingPiston;
   public static Map<Location, Integer> counterBlock = new HashMap<Location, Integer>();
   public static Map<Chunk, Integer> counterChunk = new HashMap<Chunk, Integer>();
-  public static String noPerms,tooManyArmorStand;
+  public static String noPerms, tooManyArmorStand;
 
   public void onEnable() {
     Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
@@ -42,7 +44,7 @@ public class Main extends JavaPlugin {
     Checker check = new Checker();
     check.timerTask();
     getCommand("asl").setExecutor(new CommandReload());
-	Bukkit.getServer().getPluginManager().registerEvents((Listener) new ArmorStandEvents(), (Plugin) this);
+    Bukkit.getServer().getPluginManager().registerEvents((Listener) new ArmorStandEvents(), (Plugin) this);
     Bukkit.getConsoleSender()
         .sendMessage(ChatColor.translateAlternateColorCodes('&', "&cArmorStand Limiter &aLoaded!"));
   }
@@ -58,7 +60,8 @@ public class Main extends JavaPlugin {
     TPSMeterEnabled = getConfig().getBoolean("TPSMeter.Enabled");
     LimitArmorStandPlaceForChunk = getConfig().getBoolean("Events.LimitArmorStandPlaceForChunk");
     DisableDispenserSpawningArmorstand = getConfig().getBoolean("Events.DisableDispenserSpawningArmorstand");
-    Water = getConfig().getBoolean("Events.DisableArmorStandMoving.Water");
+    EventsDisableArmorStandMovingWater = getConfig().getBoolean("Events.DisableArmorStandMoving.Water");
+    EventsDisableArmorStandMovingPiston = getConfig().getBoolean("Events.DisableArmorStandMoving.Piston");
     noPerms = getConfig().getString("noPerms");
     tooManyArmorStand = getConfig().getString("tooManyArmorStand");
   }

@@ -31,9 +31,9 @@ public class Notifications {
       new Discord(discordWebhook, discordTitle, discordDescription, discordMessage, discordColor);
     consoleEnabled = Main.instance.getConfig().getBoolean("Notifications.Console.Enabled");
     consoleMessage = Main.instance.getConfig().getString("Notifications.Console.Message");
-    onlinePlayerEnabled = Main.instance.getConfig().getBoolean("Notifications.onlinePlayer.Enabled");
-    onlinePlayerPermission = Main.instance.getConfig().getString("Notifications.onlinePlayer.Permission");
-    onlinePlayerMessage = Main.instance.getConfig().getString("Notifications.onlinePlayer.Message");
+    onlinePlayerEnabled = Main.instance.getConfig().getBoolean("Notifications.OnlinePlayer.Enabled");
+    onlinePlayerPermission = Main.instance.getConfig().getString("Notifications.OnlinePlayer.Permission");
+    onlinePlayerMessage = Main.instance.getConfig().getString("Notifications.OnlinePlayer.Message");
   }
 
   public static void send(final Chunk CHUNK, final int COUNTER) {
