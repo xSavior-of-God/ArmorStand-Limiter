@@ -57,7 +57,7 @@ Events:
   # Do you want to disable armorstand spawning through dispensers?
   DisableDispenserSpawningArmorstand: false
   # Do you want to disable the armor stand from moving...
-  DisableArmorStandMoving: false
+  DisableArmorStandMoving:
     # in water
     Water: false
     # pushed by a piston

@@ -4,23 +4,23 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import com.xSavior_of_God.ArmorStandLimiter.notifications.Notifications;
 
 public class Main extends JavaPlugin {
   public static Main instance;
   public static int armorStandLimitBlockTrigger, armorStandLimitChunkTrigger, armorStandLimitBlockTaskRefersh,
       armorStandLimitChunkTaskRefersh, TPSMeterTrigger;
-  public static boolean armorStandLimitBlockTaskEnabled, armorStandLimitChunkTaskEnabled, TPSMeterEnabled;
+  public static boolean armorStandLimitBlockTaskEnabled, armorStandLimitChunkTaskEnabled, TPSMeterEnabled, LimitArmorStandPlaceForChunk,DisableDispenserSpawningArmorstand, Water;
   public static Map<Location, Integer> counterBlock = new HashMap<Location, Integer>();
   public static Map<Chunk, Integer> counterChunk = new HashMap<Chunk, Integer>();
-  public static String noPerms;
+  public static String noPerms,tooManyArmorStand;
 
   public void onEnable() {
     Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
@@ -42,6 +42,7 @@ public class Main extends JavaPlugin {
     Checker check = new Checker();
     check.timerTask();
     getCommand("asl").setExecutor(new CommandReload());
+	Bukkit.getServer().getPluginManager().registerEvents((Listener) new ArmorStandEvents(), (Plugin) this);
     Bukkit.getConsoleSender()
         .sendMessage(ChatColor.translateAlternateColorCodes('&', "&cArmorStand Limiter &aLoaded!"));
   }
@@ -55,7 +56,11 @@ public class Main extends JavaPlugin {
     armorStandLimitChunkTaskEnabled = getConfig().getBoolean("ArmorStandLimit.Chunk.Task.Enabled");
     TPSMeterTrigger = getConfig().getInt("TPSMeter.Trigger");
     TPSMeterEnabled = getConfig().getBoolean("TPSMeter.Enabled");
+    LimitArmorStandPlaceForChunk = getConfig().getBoolean("Events.LimitArmorStandPlaceForChunk");
+    DisableDispenserSpawningArmorstand = getConfig().getBoolean("Events.DisableDispenserSpawningArmorstand");
+    Water = getConfig().getBoolean("Events.DisableArmorStandMoving.Water");
     noPerms = getConfig().getString("noPerms");
+    tooManyArmorStand = getConfig().getString("tooManyArmorStand");
   }
 
   public void onDisable() {
