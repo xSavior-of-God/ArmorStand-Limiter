@@ -25,13 +25,16 @@ public class Telegram {
 			e.printStackTrace();
 		}
 	}
-
-	public static void messageBuilder(final Location LOC, final int COUNTER, final int LIMIT) {
+	// if type == true => chunk
+	// else => xyz
+	public static void messageBuilder(final Location LOC, final int COUNTER, final int LIMIT,  Boolean... TYPES) {
 		final double X = LOC.getX();
 		final double Z = LOC.getZ();
+		boolean TYPE = false;
+		if(TYPES.length > 1) TYPE = TYPES[0];
 		final String WORLD = LOC.getWorld().getName();
 		final String MESS = message.replace("{x}", X + "").replace("{z}", Z + "").replace("{world}", WORLD)
-		    .replace("{counter}", COUNTER + "").replace("{max}", LIMIT + "");
+		    .replace("{counter}", COUNTER + "").replace("{max}", LIMIT + "").replace("{type}", TYPE?"chunk":"xyz");
 		sendMessage(MESS);
 	}
 

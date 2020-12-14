@@ -58,7 +58,9 @@ Events:
   DisableDispenserSpawningArmorstand: false
   # Do you want to disable the armor stand from moving...
   DisableArmorStandMoving:
-    # in water
+    # in water ( This option will also disable the armorstand gravity! 
+               # if you know an alternative way to fix this problem 
+               # let me know! )
     Water: false
     # pushed by a piston
     Piston: false
@@ -78,18 +80,20 @@ Notifications:
     #   {x} => Coordinate X
     #   {z} => Coordinate Z
     #   {world} => World Name
+    #   {type}  => Chunk or xyz
     #   {counter} => Total number of Armor Stands found in that location
     #   {max} => The value of 'ArmorStandLimit'
     Message: |
       &c&l----------------------------
-      &r
+      
       &eArmorStand Limiter
-      &f
+      
       &fWorld &e{world}
+      &fType &e{type}
       &fX  &e{x}
       &fZ  &e{z}
       &fCounter   &c{counter}&f/{max}
-      &r
+      
       &c&l----------------------------
 
   # Want to receive an in-game message as a notification?
@@ -103,18 +107,20 @@ Notifications:
     #   {x} => Coordinate X
     #   {z} => Coordinate Z
     #   {world} => World Name
+    #   {type}  => Chunk or xyz
     #   {counter} => Total number of Armor Stands found in that location
     #   {max} => The value of 'ArmorStandLimit'
     Message: |
       &c&l----------------------------
-      &r
+      
       &eArmorStand Limiter
-      &f
+      
       &fWorld &e{world}
+      &fType &e{type}
       &fX  &e{x}
       &fZ  &e{z}
       &fCounter   &c{counter}&f/{max}
-      &r
+      
       &c&l----------------------------
 
   Telegram:
@@ -131,14 +137,16 @@ Notifications:
     #   {x} => Coordinate X
     #   {z} => Coordinate Z
     #   {world} => World Name
+    #   {type}  => Chunk or xyz
     #   {counter} => Total number of Armor Stands found in that location
     #   {max} => The value of 'ArmorStandLimit'
     Message: |
       ⚠️ <b>ArmorStand Limiter</b> ⚠️
       
       🖼<b>World</b>  <code>{world}</code>
-      🔻<b>x</b>  <code>{x}</code>
-      🔺<b>z</b>  <code>{z}</code>
+      🧩<b>Type</b>  <code>{type}</code>
+      🔻<b>X</b>  <code>{x}</code>
+      🔺<b>Z</b>  <code>{z}</code>
       
       📊<b>Counter</b>  {counter} <code>| {max}</code>
 
@@ -148,9 +156,9 @@ Notifications:
     Webhook: ""
     # Message format
     Title: "⚠️ ArmorStand Limiter ⚠️"
-    # Default null characters
+    # Default null(Invisible) characters
     Description: "󠀀󠀀"
-    # color code, type HEX ("#fff") 
+    # color code, type HEX ("#ffeb3b") 
     Color: "#ffeb3b"
     # Message format
     #  
@@ -158,10 +166,12 @@ Notifications:
     #   {x} => Coordinate X
     #   {z} => Coordinate Z
     #   {world} => World Name
+    #   {type}  => Chunk or xyz
     #   {counter} => Total number of Armor Stands found in that location
     #   {max} => The value of 'ArmorStandLimit'
     Message: |
       🌍 **World**  {world}
+      🧩 **Type**  `{type}`
       🔻 **X**  `{x}`
       🔺 **Z**  `{z}`
       📊 **Counter**  `{counter}`/{max}

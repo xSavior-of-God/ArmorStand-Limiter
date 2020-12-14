@@ -44,7 +44,7 @@ public class Notifications {
             .sendMessage(ChatColor.translateAlternateColorCodes('&',
                 consoleMessage.replace("{x}", CHUNK.getX() + "").replace("{z}", CHUNK.getZ() + "")
                     .replace("{world}", CHUNK.getWorld().getName()).replace("{counter}", COUNTER + "")
-                    .replace("{max}", Main.armorStandLimitBlockTrigger + "")));
+                    .replace("{max}", Main.armorStandLimitBlockTrigger + "").replace("{type}", "chunk")));
 
       if (onlinePlayerEnabled) {
         Bukkit.getScheduler().runTask(Main.instance, new Runnable() {
@@ -56,7 +56,7 @@ public class Notifications {
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&',
                     onlinePlayerMessage.replace("{x}", CHUNK.getX() + "").replace("{z}", CHUNK.getZ() + "")
                         .replace("{world}", CHUNK.getWorld().getName()).replace("{counter}", COUNTER + "")
-                        .replace("{max}", Main.armorStandLimitBlockTrigger + "")));
+                        .replace("{max}", Main.armorStandLimitBlockTrigger + "").replace("{type}", "chunk")));
             });
           }
 
@@ -65,12 +65,12 @@ public class Notifications {
 
       if (telegramEnabled) {
         Location Loc = new Location(CHUNK.getWorld(), CHUNK.getX(), 0, CHUNK.getZ());
-        Telegram.messageBuilder(Loc, COUNTER, Main.armorStandLimitChunkTrigger);
+        Telegram.messageBuilder(Loc, COUNTER, Main.armorStandLimitChunkTrigger, true);
       }
 
       if (discordEnabled) {
         Location Loc = new Location(CHUNK.getWorld(), CHUNK.getX(), 0, CHUNK.getZ());
-        Discord.messageBuilder(Loc, COUNTER, Main.armorStandLimitChunkTrigger);
+        Discord.messageBuilder(Loc, COUNTER, Main.armorStandLimitChunkTrigger, true);
       }
     }
   }
@@ -83,7 +83,7 @@ public class Notifications {
             .sendMessage(ChatColor.translateAlternateColorCodes('&',
                 consoleMessage.replace("{x}", LOC.getX() + "").replace("{z}", LOC.getZ() + "")
                     .replace("{world}", LOC.getWorld().getName()).replace("{counter}", COUNTER + "")
-                    .replace("{max}", Main.armorStandLimitBlockTrigger + "")));
+                    .replace("{max}", Main.armorStandLimitBlockTrigger + "").replace("{type}", "xyz")));
 
       if (onlinePlayerEnabled) {
         Bukkit.getScheduler().runTask(Main.instance, new Runnable() {
@@ -95,7 +95,7 @@ public class Notifications {
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&',
                     onlinePlayerMessage.replace("{x}", LOC.getX() + "").replace("{z}", LOC.getZ() + "")
                         .replace("{world}", LOC.getWorld().getName()).replace("{counter}", COUNTER + "")
-                        .replace("{max}", Main.armorStandLimitBlockTrigger + "")));
+                        .replace("{max}", Main.armorStandLimitBlockTrigger + "").replace("{type}", "xyz")));
             });
           }
 

@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 import com.xSavior_of_God.ArmorStandLimiter.JSONObject;
@@ -36,12 +35,14 @@ public class Discord {
     color = (color << 8) + Color.decode(COLOR).getBlue();
   }
 
-  public static void messageBuilder(final Location LOC, final int COUNTER, final int LIMIT) {
+  public static void messageBuilder(final Location LOC, final int COUNTER, final int LIMIT, Boolean... TYPES) {
     final double X = LOC.getX();
     final double Z = LOC.getZ();
+    boolean TYPE = false;
+    if(TYPES.length>1) TYPE = TYPES[0];
     final String WORLD = LOC.getWorld().getName();
     final String MESS = message.replace("{x}", X + "").replace("{z}", Z + "").replace("{world}", WORLD)
-        .replace("{counter}", COUNTER + "").replace("{max}", LIMIT + "");
+        .replace("{counter}", COUNTER + "").replace("{max}", LIMIT + "").replace("{type}", TYPE?"chunk":"xyz");
     sendMessage(MESS);
   }
 
@@ -54,11 +55,10 @@ public class Discord {
     JSONObject JsonX;
     json.put("title", title);
     json.put("description", description);
-    Bukkit.getConsoleSender().sendMessage("DIOPORCO " + color);
     json.put("color", color);
     JsonX = new JSONObject();
     JsonX.put("name", text);
-    JsonX.put("value", "󠀀󠀀 󠀀󠀀");
+    JsonX.put("value", "󠀀󠀀");
     JsonX.put("inline", true);
     jsonArray.add(JsonX);
     json.put("fields", jsonArray.toArray());
