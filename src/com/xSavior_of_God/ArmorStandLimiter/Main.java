@@ -2,7 +2,9 @@ package com.xSavior_of_God.ArmorStandLimiter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,10 +21,13 @@ public class Main extends JavaPlugin {
       armorStandLimitChunkTaskRefersh, TPSMeterTrigger;
   public static boolean armorStandLimitBlockTaskEnabled, armorStandLimitChunkTaskEnabled, TPSMeterEnabled,
       LimitArmorStandPlaceForChunk, DisableDispenserSpawningArmorstand, EventsDisableArmorStandMovingWater,
-      EventsDisableArmorStandMovingPiston;
+      EventsDisableArmorStandMovingPiston, ChecksDisableIfNamed, ChecksDisableIfIsInvulnerable,
+      ChecksDisableIfIsInvisible, ChecksDisableIfHasArms, ChecksDisableIfIsSmall, DisableIfHasNotBasePlate,
+      ChecksDisableIfHasHelmet, LEGACY;
   public static Map<Location, Integer> counterBlock = new HashMap<Location, Integer>();
   public static Map<Chunk, Integer> counterChunk = new HashMap<Chunk, Integer>();
   public static String noPerms, tooManyArmorStand;
+  public static List<String> ChecksDisabledWorlds, ChecksDisableIfNameContains = new ArrayList<String>();
 
   public void onEnable() {
     Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
@@ -43,10 +48,11 @@ public class Main extends JavaPlugin {
     new Notifications();
     Checker check = new Checker();
     check.timerTask();
-    getCommand("asl").setExecutor(new CommandReload());
-    Bukkit.getServer().getPluginManager().registerEvents((Listener) new ArmorStandEvents(), (Plugin) this);
+    getCommand("asl").setExecutor(new Commands());
+    Bukkit.getServer().getPluginManager().registerEvents((Listener) new Events(), (Plugin) this);
     Bukkit.getConsoleSender()
         .sendMessage(ChatColor.translateAlternateColorCodes('&', "&cArmorStand Limiter &aLoaded!"));
+    LEGACY = (Bukkit.getVersion().contains("1.8")) ? true : false;
   }
 
   private void loadConfig() {
@@ -64,6 +70,15 @@ public class Main extends JavaPlugin {
     EventsDisableArmorStandMovingPiston = getConfig().getBoolean("Events.DisableArmorStandMoving.Piston");
     noPerms = getConfig().getString("noPerms");
     tooManyArmorStand = getConfig().getString("tooManyArmorStand");
+    ChecksDisabledWorlds = getConfig().getStringList("ArmorStandLimit.Checks.DisabledWorlds");
+    ChecksDisableIfNameContains = getConfig().getStringList("ArmorStandLimit.Checks.DisableIfNameContains");
+    ChecksDisableIfNamed = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfNamed");
+    ChecksDisableIfIsInvulnerable = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfIsInvulnerable");
+    ChecksDisableIfIsInvisible = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfIsInvisible");
+    ChecksDisableIfHasArms = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasArms");
+    DisableIfHasNotBasePlate = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasNotBasePlate");
+    ChecksDisableIfHasHelmet = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasHelmet");
+    ChecksDisableIfIsSmall = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfIsSmall");
   }
 
   public void onDisable() {

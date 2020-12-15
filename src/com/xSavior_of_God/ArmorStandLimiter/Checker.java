@@ -62,15 +62,18 @@ public class Checker {
 	private void taskBlock() {
 		Main.instance.getServer().getScheduler().runTaskTimerAsynchronously(Main.instance, new Runnable() {
 
-			@Override
+      @Override
 			public void run() {
 				for (final World w : Bukkit.getServer().getWorlds()) {
+			    if(Main.ChecksDisabledWorlds.contains(w.getName()))
+			      continue;
 					for (final Chunk c : w.getLoadedChunks()) {
 						for (final Entity e : c.getEntities()) {
 							if (!(e instanceof ArmorStand)) {
 								continue;
 							}
 							final ArmorStand arm = (ArmorStand) e;
+	            if (Utilis.checkArmorStand(arm)) continue;
 							Location loc = arm.getLocation();
 
 							loc.setY(0);
@@ -100,6 +103,7 @@ public class Checker {
 								continue;
 							}
 							final ArmorStand arm = (ArmorStand) e;
+		          if (Utilis.checkArmorStand(arm)) continue;
 							Location loc = arm.getLocation();
 
 							loc.setY(0);
@@ -131,15 +135,18 @@ public class Checker {
 	private void taskChunk() {
 		Main.instance.getServer().getScheduler().runTaskTimerAsynchronously(Main.instance, new Runnable() {
 
-			@Override
+      @Override
 			public void run() {
 				for (final World w : Bukkit.getServer().getWorlds()) {
+		      if(Main.ChecksDisabledWorlds.contains(w.getName()))
+		        continue;
 					for (final Chunk c : w.getLoadedChunks()) {
 						for (final Entity e : c.getEntities()) {
 							if (!(e instanceof ArmorStand)) {
 								continue;
 							}
 							final ArmorStand arm = (ArmorStand) e;
+	            if (Utilis.checkArmorStand(arm)) continue;
 							Chunk chunk = arm.getLocation().getChunk();
 							if (localCounterChunk.containsKey(chunk)) {
 								localCounterChunk.replace(chunk, (localCounterChunk.get(chunk) + 1));
@@ -158,12 +165,12 @@ public class Checker {
 								continue;
 							}
 							final ArmorStand arm = (ArmorStand) e;
+		          if (Utilis.checkArmorStand(arm)) continue;
 							Chunk mychunk = arm.getLocation().getChunk();
 							if (chunk.toString().equalsIgnoreCase(mychunk.toString())) {
 								try {
 									arm.remove();
-								} catch (Exception ex) {
-								}
+								} catch (Exception ex) { }
 								localCounterChunk.replace(chunk, (localCounterChunk.get(chunk) - 1));
 							}
 						}
@@ -174,14 +181,17 @@ public class Checker {
 		}, Main.armorStandLimitChunkTaskRefersh * 60 * 20L, Main.armorStandLimitChunkTaskRefersh * 60 * 20L);
 	}
 
-	public void clearBlock() {
+  public void clearBlock() {
 		for (final World w : Bukkit.getServer().getWorlds()) {
 			for (final Chunk c : w.getLoadedChunks()) {
+	      if(Main.ChecksDisabledWorlds.contains(w.getName()))
+	        continue;
 				for (final Entity e : c.getEntities()) {
 					if (!(e instanceof ArmorStand)) {
 						continue;
 					}
 					final ArmorStand arm = (ArmorStand) e;
+          if (Utilis.checkArmorStand(arm)) continue;
 					Location loc = arm.getLocation();
 
 					loc.setY(0);
@@ -211,6 +221,7 @@ public class Checker {
 						continue;
 					}
 					final ArmorStand arm = (ArmorStand) e;
+          if (Utilis.checkArmorStand(arm)) continue;
 					Location loc = arm.getLocation();
 
 					loc.setY(0);
@@ -235,14 +246,17 @@ public class Checker {
 		});
 	}
 
-	public void clearChunk() {
+  public void clearChunk() {
 		for (final World w : Bukkit.getServer().getWorlds()) {
+      if(Main.ChecksDisabledWorlds.contains(w.getName()))
+        continue;
 			for (final Chunk c : w.getLoadedChunks()) {
 				for (final Entity e : c.getEntities()) {
 					if (!(e instanceof ArmorStand)) {
 						continue;
 					}
 					final ArmorStand arm = (ArmorStand) e;
+          if (Utilis.checkArmorStand(arm)) continue;
 					Chunk chunk = arm.getLocation().getChunk();
 					if (localCounterChunk.containsKey(chunk)) {
 						localCounterChunk.replace(chunk, (localCounterChunk.get(chunk) + 1));
@@ -261,6 +275,7 @@ public class Checker {
 						continue;
 					}
 					final ArmorStand arm = (ArmorStand) e;
+          if (Utilis.checkArmorStand(arm)) continue;
 					Chunk mychunk = arm.getLocation().getChunk();
 					if (chunk.toString().equalsIgnoreCase(mychunk.toString())) {
 						try {

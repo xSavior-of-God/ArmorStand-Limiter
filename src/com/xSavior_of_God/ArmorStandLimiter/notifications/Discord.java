@@ -28,7 +28,7 @@ public class Discord {
       e.printStackTrace();
     }
     title = TITLE;
-    description = DESCRIPTION;
+    description = DESCRIPTION.replace("%empity%", "󠀀󠀀 󠀀󠀀");
     message = MESSAGE;
     color = Color.decode(COLOR).getRed();
     color = (color << 8) + Color.decode(COLOR).getGreen();
@@ -39,10 +39,11 @@ public class Discord {
     final double X = LOC.getX();
     final double Z = LOC.getZ();
     boolean TYPE = false;
-    if(TYPES.length>1) TYPE = TYPES[0];
+    if (TYPES.length > 0)
+      TYPE = TYPES[0];
     final String WORLD = LOC.getWorld().getName();
     final String MESS = message.replace("{x}", X + "").replace("{z}", Z + "").replace("{world}", WORLD)
-        .replace("{counter}", COUNTER + "").replace("{max}", LIMIT + "").replace("{type}", TYPE?"chunk":"xyz");
+        .replace("{counter}", COUNTER + "").replace("{max}", LIMIT + "").replace("{type}", TYPE ? "chunk" : "xyz");
     sendMessage(MESS);
   }
 
@@ -58,7 +59,7 @@ public class Discord {
     json.put("color", color);
     JsonX = new JSONObject();
     JsonX.put("name", text);
-    JsonX.put("value", "󠀀󠀀");
+    JsonX.put("value", "󠀀󠀀 󠀀󠀀");
     JsonX.put("inline", true);
     jsonArray.add(JsonX);
     json.put("fields", jsonArray.toArray());
@@ -67,7 +68,7 @@ public class Discord {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeER8zwJX-WLGXeIuw94rBioFCUx254ypvcQ&usqp=CAU");
     json.put("thumbnail", JsonX);
     JsonX = new JSONObject();
-    JsonX.put("text", "Created by xSavior_of_God   © 2020/" + Year + " HeroxPlugins");
+    JsonX.put("text", "Created by xSavior_of_God © 2020/" + Year + " HeroxPlugins");
     JsonX.put("icon_url",
         "https://cdn.discordapp.com/icons/577978634569252895/eae04392234904524a7124d07777371f.png?size=128");
     json.put("footer", JsonX);

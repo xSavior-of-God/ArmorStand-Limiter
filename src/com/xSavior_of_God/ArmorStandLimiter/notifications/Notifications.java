@@ -44,7 +44,7 @@ public class Notifications {
             .sendMessage(ChatColor.translateAlternateColorCodes('&',
                 consoleMessage.replace("{x}", CHUNK.getX() + "").replace("{z}", CHUNK.getZ() + "")
                     .replace("{world}", CHUNK.getWorld().getName()).replace("{counter}", COUNTER + "")
-                    .replace("{max}", Main.armorStandLimitBlockTrigger + "").replace("{type}", "chunk")));
+                    .replace("{max}", Main.armorStandLimitChunkTrigger + "").replace("{type}", "chunk")));
 
       if (onlinePlayerEnabled) {
         Bukkit.getScheduler().runTask(Main.instance, new Runnable() {
@@ -56,7 +56,7 @@ public class Notifications {
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&',
                     onlinePlayerMessage.replace("{x}", CHUNK.getX() + "").replace("{z}", CHUNK.getZ() + "")
                         .replace("{world}", CHUNK.getWorld().getName()).replace("{counter}", COUNTER + "")
-                        .replace("{max}", Main.armorStandLimitBlockTrigger + "").replace("{type}", "chunk")));
+                        .replace("{max}", Main.armorStandLimitChunkTrigger + "").replace("{type}", "chunk")));
             });
           }
 

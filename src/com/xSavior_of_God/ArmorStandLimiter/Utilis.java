@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.ArmorStand;
 
 public class Utilis {
 
@@ -60,6 +61,33 @@ public class Utilis {
     connection.disconnect();
   }
 
+  public static boolean checkArmorStand_for113PLUS(ArmorStand arm) {
+    if(Main.ChecksDisableIfIsInvulnerable && arm.isInvulnerable())
+      return true;
+    return false;
+  }
+   
+  public static boolean checkArmorStand(ArmorStand arm) {
+    if(arm.getName()!= null && Main.ChecksDisableIfNameContains.contains(arm.getName()))
+      return true;
+    if(Main.ChecksDisableIfNamed && (arm.getName() != null && arm.getName() != ""))
+      return true;
+    if(Main.ChecksDisableIfHasArms && arm.hasArms())
+      return true;
+    if(Main.DisableIfHasNotBasePlate && !arm.hasBasePlate())
+      return true;
+    if(Main.ChecksDisableIfHasHelmet && arm.getHelmet() != null)
+      return true;
+    if(!Main.LEGACY && checkArmorStand_for113PLUS(arm))
+      return true;
+    if(Main.ChecksDisableIfIsSmall && arm.isSmall())
+      return true;
+    if(Main.ChecksDisableIfIsInvisible && !arm.isVisible())
+      return true;
+    
+    return false;
+  }
+  
   public static Class<?> getNMSClass(final String NAME) {
     try {
       return Class.forName(

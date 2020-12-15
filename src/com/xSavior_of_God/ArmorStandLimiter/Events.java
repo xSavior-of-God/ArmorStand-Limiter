@@ -20,15 +20,17 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class ArmorStandEvents implements Listener {
+public class Events implements Listener {
 
   @SuppressWarnings("deprecation")
   @EventHandler(priority = EventPriority.NORMAL)
   public void onPlaceArmorStand(PlayerInteractEvent e) {
-    if (!Main.LimitArmorStandPlaceForChunk || e.isCancelled()) {
+    if (!Main.LimitArmorStandPlaceForChunk || e.isCancelled())
       return;
-    }
-
+    if(Main.ChecksDisabledWorlds.contains(e.getPlayer().getWorld().getName()))
+      return;
+    if(e.getPlayer().isOp() || e.getPlayer().hasPermission("armorstandlimiter.bypass"))
+      return;
     int armorStandCounter = 1;
     if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)
         && e.getPlayer().getItemInHand().getType().equals(Material.ARMOR_STAND)) {
@@ -49,18 +51,21 @@ public class ArmorStandEvents implements Listener {
   }
 
   @EventHandler(priority = EventPriority.NORMAL)
-  public void onDispenserPlaceEvent(BlockDispenseEvent e) {
-    if (!Main.DisableDispenserSpawningArmorstand || e.isCancelled()) {
+  public void onBlockDispenseEvent(BlockDispenseEvent e) {
+    if (!Main.DisableDispenserSpawningArmorstand || e.isCancelled()) 
       return;
-    }
+    if(Main.ChecksDisabledWorlds.contains(e.getBlock().getWorld().getName()))
+      return;
     if (e.getItem().getType().equals(Material.ARMOR_STAND)) {
       e.setCancelled(true);
     }
   }
 
   @EventHandler(priority = EventPriority.NORMAL)
-  public void onBlockPhysics(EntitySpawnEvent e) {
+  public void onEntitySpawnEvent(EntitySpawnEvent e) {
     if (!Main.EventsDisableArmorStandMovingWater || e.isCancelled())
+      return;
+    if(Main.ChecksDisabledWorlds.contains(e.getEntity().getWorld().getName()))
       return;
 
     Entity entity = e.getEntity();
@@ -70,13 +75,14 @@ public class ArmorStandEvents implements Listener {
   }
 
   @EventHandler(priority = EventPriority.NORMAL)
-  public void onPistonPush(BlockPistonExtendEvent e) {
+  public void onBlockPistonExtendEvent(BlockPistonExtendEvent e) {
     if (!Main.EventsDisableArmorStandMovingPiston || e.isCancelled())
+      return;
+    if(Main.ChecksDisabledWorlds.contains(e.getBlock().getWorld().getName()))
       return;
 
     Location loc = e.getBlock().getLocation();
     Location locToCheck = loc;
-    // System.out.println(e.getBlocks().toString());
 
     if (e.getBlocks().isEmpty()) {
       switch (e.getDirection()) {
@@ -106,9 +112,7 @@ public class ArmorStandEvents implements Listener {
       for (final Entity entity : locToCheck.getChunk().getEntities()) {
         if (entity instanceof ArmorStand) {
           ArmorStand arm = (ArmorStand) entity;
-          if (arm.isInvisible() || arm.hasAI() || arm.isInvulnerable())
-            continue;
-          
+          if (Utilis.checkArmorStand(arm)) continue;
           final int X = entity.getLocation().getBlockX();
           final int Y = entity.getLocation().getBlockY();
           final int Z = entity.getLocation().getBlockZ();
@@ -154,8 +158,7 @@ public class ArmorStandEvents implements Listener {
         for (final Entity entity : chunk.getEntities()) {
           if (entity instanceof ArmorStand) {
             ArmorStand arm = (ArmorStand) entity;
-            if (arm.isInvisible() || arm.hasAI() || arm.isInvulnerable())
-              continue;
+            if (Utilis.checkArmorStand(arm)) continue;
             e.setCancelled(true);
             return;
           }
@@ -163,21 +166,5 @@ public class ArmorStandEvents implements Listener {
       }
 
     }
-
-    /*
-     * POOOP //System.out.println("PRE LOC: " + loc.getBlockX() + " LOC: " +
-     * loc.getBlockY() + " LOC: " + loc.getBlockZ());
-     * //loc.add(e.getDirection().getDirection().getBlockX(),e.getDirection().
-     * getDirection().getBlockY(),e.getDirection().getDirection().getBlockZ());
-     * System.out.println("LOC: " + loc.getBlockX() + " LOC: " + loc.getBlockY() +
-     * " LOC: " + loc.getBlockZ()); if
-     * (loc.getBlock().getType().equals(Material.ARMOR_STAND)) {
-     * e.setCancelled(true); } }
-     * 
-     * @EventHandler(priority = EventPriority.NORMAL) public void
-     * onPistonPush(EntityChangeBlockEvent e) { Entity entity = e.getEntity(); if
-     * (entity instanceof ArmorStand) { e.setCancelled(true); }
-     */
-
   }
 }

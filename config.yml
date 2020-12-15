@@ -36,6 +36,29 @@ ArmorStandLimit:
       Enabled: true
       # How often should the check be done? ( Recommended 5 )
       Refresh: 10
+  # Various checks to perform before removing an armorstand
+  Checks:
+    # List of worlds where armorstands should not be removed
+    DisabledWorlds:
+      - 'world_disabled'
+    # List of words that, if present in the name of the armor stand, 
+    # prohibit its removal
+    DisableIfNameContains:
+      - 'CustomName'
+    # Disable removal if Armor Stand has a Name
+    DisableIfNamed: true
+    # (ONLY 1.9+) Disable removal if Armor Stand is Invulnerable
+    DisableIfIsInvulnerable: true
+    # Disable removal if Armor Stand is Invisible
+    DisableIfIsInvisible: true
+    # Disable removal if Armor Stand has Arms
+    DisableIfHasArms: true
+    # Disable removal if Armor Stand has not BasePlate
+    DisableIfHasNotBasePlate: true
+    # Disable removal if Armor Stand has Helmet
+    DisableIfHasHelmet: false
+    # Disable removal if Armor Stand is small
+    DisableIfIsSmall: true
 
 noPerms: "&cNo perms!"
 tooManyArmorStand: "&c&lHey! &7You can't place it here, there are more than {max} armor stands in this chunk!"
@@ -141,23 +164,23 @@ Notifications:
     #   {counter} => Total number of Armor Stands found in that location
     #   {max} => The value of 'ArmorStandLimit'
     Message: |
-      ⚠️ <b>ArmorStand Limiter</b> ⚠️
-      
-      🖼<b>World</b>  <code>{world}</code>
-      🧩<b>Type</b>  <code>{type}</code>
-      🔻<b>X</b>  <code>{x}</code>
-      🔺<b>Z</b>  <code>{z}</code>
-      
-      📊<b>Counter</b>  {counter} <code>| {max}</code>
+      <b>ArmorStand Limiter</b>
+      %empity%
+      <b>World</b>  <code>{world}</code>
+      <b>Type</b>  <code>{type}</code>
+      <b>X</b>  <code>{x}</code>
+      <b>Z</b>  <code>{z}</code>
+      %empity%
+      <b>Counter</b>  {counter} <code>| {max}</code>
 
   Discord:
     Enabled: false
     # The token of the bot that sends you the notification
     Webhook: ""
     # Message format
-    Title: "⚠️ ArmorStand Limiter ⚠️"
+    Title: "ArmorStand Limiter"
     # Default null(Invisible) characters
-    Description: "󠀀󠀀"
+    Description: "%empity%"
     # color code, type HEX ("#ffeb3b") 
     Color: "#ffeb3b"
     # Message format
@@ -170,8 +193,8 @@ Notifications:
     #   {counter} => Total number of Armor Stands found in that location
     #   {max} => The value of 'ArmorStandLimit'
     Message: |
-      🌍 **World**  {world}
-      🧩 **Type**  `{type}`
-      🔻 **X**  `{x}`
-      🔺 **Z**  `{z}`
-      📊 **Counter**  `{counter}`/{max}
+      **World**  {world}
+      **Type**  `{type}`
+      **X**  `{x}`
+      **Z**  `{z}`
+      **Counter**  `{counter}`/{max}
