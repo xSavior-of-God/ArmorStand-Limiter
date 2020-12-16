@@ -1,10 +1,10 @@
 # ArmorStand-Limiter
 
-### allows you to limit armor stands, so you can fix TPS drops caused by a high number of ArmorStands in your server!
-### Can be used in all modalities and is fully and easily configurable thanks to its intuitive configuration file.
+allows you to limit armor stands, so you can fix TPS drops caused by a high number of ArmorStands in your server!
+Can be used in all modalities and is fully and easily configurable thanks to its intuitive configuration file.
 
-### This plugin was created with the express purpose of fixing LAG problems caused by other plugins that generate and do not remove custom Armor Stands within a single block!
-### Later we also thought of adding other functions to avoid lagging machines caused by Armor Stands, like this one in the picture
+This plugin was created with the express purpose of fixing LAG problems caused by other plugins that generate and do not remove custom Armor Stands within a single block!
+Later we also thought of adding other functions to avoid lagging machines caused by Armor Stands, like this one in the picture
 
 ![Image of lag macchine](https://proxy.spigotmc.org/b7784492579431e53d92e3f263d82e45ecdd4eee?url=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2FtEMxrfDqlsOxr3Ft8N%2Fgiphy.gif)
 
