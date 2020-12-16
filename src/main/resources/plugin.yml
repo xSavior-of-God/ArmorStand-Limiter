@@ -1,13 +1,21 @@
 name: ArmorStand-Limiter
 main: com.xSavior_of_God.ArmorStandLimiter.Main
-version: "1.0"
+version: maven-version-number
 api-version: 1.13
 author: xSavior_of_God
 commands:
   asl:
     description: reload the plugin
     usage:  /asl 
+            /asl test
+            /asl check <chunk/xyz>
 permissions:
   armostandlimiter.reload:
     description: you can reload the plugin if you have this permission
+    default: op
+  armostandlimiter.check:
+    description: you can check the number of armorstand in a chunk or block
+    default: op
+  armostandlimiter.test:
+    description: you can test the notification system
     default: op

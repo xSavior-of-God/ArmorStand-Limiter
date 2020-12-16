@@ -12,12 +12,21 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import com.xSavior_of_God.ArmorStandLimiter.notifications.Notifications;
+
 public class Commands implements CommandExecutor {
 
   @Override
   public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-    if (sender instanceof Player && sender.hasPermission("armorstandlimiter.check")
-        && args.length > 0 && args[0].equalsIgnoreCase("check")) {
+    if ((sender instanceof ConsoleCommandSender || sender.isOp()
+        || sender.hasPermission("armorstandlimiter.test")) && args.length > 0 && args[0].equalsIgnoreCase("test")) {
+      Location loc = new Location(Bukkit.getWorlds().get(0), 1, 2, 3);
+      Notifications.send(loc, 9999);
+      Notifications.send(loc.getChunk(), 9999);
+      return true;
+    }
+    if (sender instanceof Player && sender.hasPermission("armorstandlimiter.check") && args.length > 0
+        && args[0].equalsIgnoreCase("check")) {
       boolean isChunk = false;
       String message = "&cThere are &f{c}&c Armor Stands &7(x{x}, z{z} - {type})";
       int c = 0;

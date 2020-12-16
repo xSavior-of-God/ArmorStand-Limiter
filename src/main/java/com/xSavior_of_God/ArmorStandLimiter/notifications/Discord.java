@@ -12,7 +12,7 @@ import java.util.List;
 
 import org.bukkit.Location;
 
-import com.xSavior_of_God.ArmorStandLimiter.JSONObject;
+import org.json.JSONObject;
 import com.xSavior_of_God.ArmorStandLimiter.Utilis;
 
 public class Discord {
@@ -28,7 +28,7 @@ public class Discord {
       e.printStackTrace();
     }
     title = TITLE;
-    description = DESCRIPTION.replace("%empity%", "󠀀󠀀 󠀀󠀀");
+    description = DESCRIPTION.replace("%empity%", "\u200b");
     message = MESSAGE;
     color = Color.decode(COLOR).getRed();
     color = (color << 8) + Color.decode(COLOR).getGreen();
@@ -59,7 +59,7 @@ public class Discord {
     json.put("color", color);
     JsonX = new JSONObject();
     JsonX.put("name", text);
-    JsonX.put("value", "󠀀󠀀 󠀀󠀀");
+    JsonX.put("value", "\u200b");
     JsonX.put("inline", true);
     jsonArray.add(JsonX);
     json.put("fields", jsonArray.toArray());
@@ -68,7 +68,7 @@ public class Discord {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeER8zwJX-WLGXeIuw94rBioFCUx254ypvcQ&usqp=CAU");
     json.put("thumbnail", JsonX);
     JsonX = new JSONObject();
-    JsonX.put("text", "Created by xSavior_of_God © 2020/" + Year + " HeroxPlugins");
+    JsonX.put("text", "Created by xSavior_of_God � 2020/" + Year + " HeroxPlugins");
     JsonX.put("icon_url",
         "https://cdn.discordapp.com/icons/577978634569252895/eae04392234904524a7124d07777371f.png?size=128");
     json.put("footer", JsonX);

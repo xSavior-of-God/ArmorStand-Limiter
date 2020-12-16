@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
@@ -30,8 +32,11 @@ public class Main extends JavaPlugin {
   public static List<String> ChecksDisabledWorlds, ChecksDisableIfNameContains = new ArrayList<String>();
 
   public void onEnable() {
-    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
-        "\n\r \n\r                           &cArmorStand Limiter\n\r                       &fCreated by xSavior_of_God \n\r \n\r "));
+    Bukkit.getConsoleSender()
+        .sendMessage(ChatColor.translateAlternateColorCodes('&',
+            "\r\n" + "\r\n" + "&e /\\   _  _   _   _ &e(_  |_  _   _   _|   &f|   .  _  . |_  _  _\r\n"
+                + "&e/--\\ |  ||| (_) |  &e__) |_ (_| | ) (_|   &f|__ | ||| | |_ (- | \r\n" + "&7v"
+                + getDescription().getVersion() + "\r\n" + "&cCreated by xSavior_of_God \r\n" + "\r\n "));
     final File configFile = new File(this.getDataFolder(), "config.yml");
     if (!configFile.exists()) {
       saveResource("config.yml", false);
@@ -51,7 +56,7 @@ public class Main extends JavaPlugin {
     getCommand("asl").setExecutor(new Commands());
     Bukkit.getServer().getPluginManager().registerEvents((Listener) new Events(), (Plugin) this);
     Bukkit.getConsoleSender()
-        .sendMessage(ChatColor.translateAlternateColorCodes('&', "&cArmorStand Limiter &aLoaded!"));
+        .sendMessage(ChatColor.translateAlternateColorCodes('&', "&eArmorStand &fLimiter &aLoaded!"));
     LEGACY = (Bukkit.getVersion().contains("1.8")) ? true : false;
   }
 

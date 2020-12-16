@@ -21,7 +21,7 @@ ArmorStandLimit:
     # than 'ArmorStandLimit' in a block?
     Task:
       # Do you want to enable this task?
-      Enabled: true
+      Enabled: false
       # How often should the check be done? ( Recommended 5 )
       Refresh: 10
   # ...in a chunk to be removed?
@@ -33,7 +33,7 @@ ArmorStandLimit:
     # than 'ArmorStandLimit' in a chunk?
     Task:
       # Do you want to enable this task?
-      Enabled: true
+      Enabled: false
       # How often should the check be done? ( Recommended 5 )
       Refresh: 10
   # Various checks to perform before removing an armorstand
@@ -68,7 +68,7 @@ tooManyArmorStand: "&c&lHey! &7You can't place it here, there are more than {max
 # will be cleared only if they are more than 'ArmorStandLimit' in a single block
 TPSMeter:
   # Do you want to enable this feature?
-  Enabled: true
+  Enabled: false
   # Under how many TPS must the server go down to trigger this event? ( Recommended 17 )
   Trigger: 17
 
@@ -108,15 +108,15 @@ Notifications:
     #   {max} => The value of 'ArmorStandLimit'
     Message: |
       &c&l----------------------------
-      
+      &r
       &eArmorStand Limiter
-      
+      &r
       &fWorld &e{world}
       &fType &e{type}
       &fX  &e{x}
       &fZ  &e{z}
       &fCounter   &c{counter}&f/{max}
-      
+      &r
       &c&l----------------------------
 
   # Want to receive an in-game message as a notification?
@@ -135,15 +135,15 @@ Notifications:
     #   {max} => The value of 'ArmorStandLimit'
     Message: |
       &c&l----------------------------
-      
+      &r
       &eArmorStand Limiter
-      
+      &r
       &fWorld &e{world}
       &fType &e{type}
       &fX  &e{x}
       &fZ  &e{z}
       &fCounter   &c{counter}&f/{max}
-      
+      &r
       &c&l----------------------------
 
   Telegram:
