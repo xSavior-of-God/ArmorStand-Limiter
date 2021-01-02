@@ -42,7 +42,7 @@ With ArmorStand Limiter| Without ArmorStand Limiter
 
 # Support
 
-[![support image](https://www.spigotmc.org/attachments/df49f8622d8e980cdb32f660948c1a13f2c45a5d-png.576954/)](https://discord.gg/5GqJbRw)
+[![support image](https://www.spigotmc.org/attachments/df49f8622d8e980cdb32f660948c1a13f2c45a5d-png.581579/)](https://discord.gg/5GqJbRw)
 
 **[https://discord.gg/5GqJbRw](https://discord.gg/5GqJbRw)**
 
