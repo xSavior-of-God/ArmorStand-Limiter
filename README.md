@@ -6,7 +6,7 @@ Can be used in all modalities and is fully and easily configurable thanks to its
 This plugin was created with the express purpose of fixing LAG problems caused by other plugins that generate and do not remove custom Armor Stands within a single block!
 Later we also thought of adding other functions to avoid lagging machines caused by Armor Stands, like this one in the picture
 
-![Image of lag macchine](https://proxy.spigotmc.org/b7784492579431e53d92e3f263d82e45ecdd4eee?url=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2FtEMxrfDqlsOxr3Ft8N%2Fgiphy.gif)
+![Image of lag macchine](https://media.giphy.com/media/tEMxrfDqlsOxr3Ft8N/giphy.gif)
 
 ## Feature
 * The most important function is that of removing CUSTOM Armor Stands ( created by other plugins ) that exceed the preset limit in a single block or chunk!
@@ -42,7 +42,7 @@ With ArmorStand Limiter| Without ArmorStand Limiter
 
 # Support
 
-[![support image](https://www.spigotmc.org/attachments/df49f8622d8e980cdb32f660948c1a13f2c45a5d-png.576954/)](https://discord.gg/5GqJbRw)
+[![support image](https://www.heroxwar.com/discordLogo.png)](https://discord.gg/5GqJbRw)
 
 **[https://discord.gg/5GqJbRw](https://discord.gg/5GqJbRw)**
 
