@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.xSavior_of_God</groupId>
   <artifactId>ArmorStand-Limiter</artifactId>
-  <version>1.1</version>
+  <version>1.2</version>
   <build>
     <defaultGoal>clean install</defaultGoal>
     <finalName>ArmorStand-Limiter v${project.version}</finalName>
@@ -55,6 +55,10 @@
   </build>
   <repositories>
     <repository>
+      <id>codemc-repo</id>
+      <url>https://repo.codemc.io/repository/maven-public/</url>
+    </repository>
+    <repository>
       <id>spigot-repo</id>
       <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
@@ -95,6 +99,12 @@
           <groupId>net.md-5</groupId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.gmail.filoghost.holographicdisplays</groupId>
+      <artifactId>holographicdisplays-api</artifactId>
+      <version>2.4.0</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>

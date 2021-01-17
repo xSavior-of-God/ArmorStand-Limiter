@@ -59,6 +59,8 @@ ArmorStandLimit:
     DisableIfHasHelmet: false
     # Disable removal if Armor Stand is small
     DisableIfIsSmall: true
+    # Disable if an entity is part of a hologram
+    DisableIfHolographicDisplaysEntityPart: false
 
 noPerms: "&cNo perms!"
 tooManyArmorStand: "&c&lHey! &7You can't place it here, there are more than {max} armor stands in this chunk!"

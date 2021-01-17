@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -25,7 +24,7 @@ public class Main extends JavaPlugin {
       LimitArmorStandPlaceForChunk, DisableDispenserSpawningArmorstand, EventsDisableArmorStandMovingWater,
       EventsDisableArmorStandMovingPiston, ChecksDisableIfNamed, ChecksDisableIfIsInvulnerable,
       ChecksDisableIfIsInvisible, ChecksDisableIfHasArms, ChecksDisableIfIsSmall, DisableIfHasNotBasePlate,
-      ChecksDisableIfHasHelmet, LEGACY;
+      ChecksDisableIfHasHelmet, LEGACY, ChecksDisableIfHolographicDisplaysEntityPart;
   public static Map<Location, Integer> counterBlock = new HashMap<Location, Integer>();
   public static Map<Chunk, Integer> counterChunk = new HashMap<Chunk, Integer>();
   public static String noPerms, tooManyArmorStand;
@@ -50,6 +49,11 @@ public class Main extends JavaPlugin {
     }
     instance = this;
     loadConfig();
+    if (ChecksDisableIfHolographicDisplaysEntityPart && !Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays")) {
+      Bukkit.getConsoleSender()
+      .sendMessage(ChatColor.translateAlternateColorCodes('&',"&cHolographicDisplays is not installed or not enabled."));
+      ChecksDisableIfHolographicDisplaysEntityPart = false;
+    }
     new Notifications();
     Checker check = new Checker();
     check.timerTask();
@@ -84,6 +88,7 @@ public class Main extends JavaPlugin {
     DisableIfHasNotBasePlate = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasNotBasePlate");
     ChecksDisableIfHasHelmet = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasHelmet");
     ChecksDisableIfIsSmall = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfIsSmall");
+    ChecksDisableIfHolographicDisplaysEntityPart = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHolographicDisplaysEntityPart");
   }
 
   public void onDisable() {
