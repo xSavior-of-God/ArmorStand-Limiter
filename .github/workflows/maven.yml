@@ -4,8 +4,6 @@
 name: Java CI with Maven
 
 on:
-  repository_dispatch:
-    types: [opened, deleted]
   push:
     branches: [ main ]
   pull_request:
