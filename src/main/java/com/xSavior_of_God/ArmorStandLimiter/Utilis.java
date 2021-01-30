@@ -15,6 +15,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.ArmorStand;
 import org.json.JSONObject;
 
+import com.xSavior_of_God.ArmorStandLimiter.api.events.onArmorStandRemove;
+
 public class Utilis {
 
   public static void apiRequest(final Map<String, Object> PAR, final URL URL) throws IOException {
@@ -69,13 +71,18 @@ public class Utilis {
   }
    
   public static boolean checkArmorStand(ArmorStand arm) {
+    onArmorStandRemove event = new onArmorStandRemove(arm);
+    Bukkit.getPluginManager().callEvent(event);
+    if (event.isCancelled()) {
+      return true;
+    }
     if(arm.getName()!= null && Main.ChecksDisableIfNameContains.contains(arm.getName()))
       return true;
     if(Main.ChecksDisableIfNamed && (arm.getName() != null && arm.getName() != ""))
       return true;
     if(Main.ChecksDisableIfHasArms && arm.hasArms())
       return true;
-    if(Main.DisableIfHasNotBasePlate && !arm.hasBasePlate())
+    if(Main.ChecksDisableIfHasNotBasePlate && !arm.hasBasePlate())
       return true;
     if(Main.ChecksDisableIfHasHelmet && arm.getHelmet() != null)
       return true;

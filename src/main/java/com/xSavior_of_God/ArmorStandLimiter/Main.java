@@ -23,8 +23,8 @@ public class Main extends JavaPlugin {
   public static boolean armorStandLimitBlockTaskEnabled, armorStandLimitChunkTaskEnabled, TPSMeterEnabled,
       LimitArmorStandPlaceForChunk, DisableDispenserSpawningArmorstand, EventsDisableArmorStandMovingWater,
       EventsDisableArmorStandMovingPiston, ChecksDisableIfNamed, ChecksDisableIfIsInvulnerable,
-      ChecksDisableIfIsInvisible, ChecksDisableIfHasArms, ChecksDisableIfIsSmall, DisableIfHasNotBasePlate,
-      ChecksDisableIfHasHelmet, LEGACY, ChecksDisableIfHolographicDisplaysEntityPart;
+      ChecksDisableIfIsInvisible, ChecksDisableIfHasArms, ChecksDisableIfIsSmall, ChecksDisableIfHasNotBasePlate,
+      ChecksDisableIfHasHelmet, LEGACY, ChecksDisableIfHolographicDisplaysEntityPart, ChecksDisableIfIsModelEngineEntity;
   public static Map<Location, Integer> counterBlock = new HashMap<Location, Integer>();
   public static Map<Chunk, Integer> counterChunk = new HashMap<Chunk, Integer>();
   public static String noPerms, tooManyArmorStand;
@@ -85,10 +85,11 @@ public class Main extends JavaPlugin {
     ChecksDisableIfIsInvulnerable = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfIsInvulnerable");
     ChecksDisableIfIsInvisible = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfIsInvisible");
     ChecksDisableIfHasArms = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasArms");
-    DisableIfHasNotBasePlate = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasNotBasePlate");
+    ChecksDisableIfHasNotBasePlate = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasNotBasePlate");
     ChecksDisableIfHasHelmet = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasHelmet");
     ChecksDisableIfIsSmall = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfIsSmall");
     ChecksDisableIfHolographicDisplaysEntityPart = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHolographicDisplaysEntityPart");
+    ChecksDisableIfIsModelEngineEntity = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfIsModelEngineEntity");
   }
 
   public void onDisable() {
