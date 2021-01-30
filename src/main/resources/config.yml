@@ -63,7 +63,7 @@ ArmorStandLimit:
     DisableIfHolographicDisplaysEntityPart: false
     # Disable if is active part of a Model Engine Entity 
     # ( Required ModelEngine https://www.spigotmc.org/resources/79477/ )
-    ChecksDisableIfIsModelEngineEntity: true
+    DisableIfIsModelEngineEntity: true
 
 noPerms: "&cNo perms!"
 tooManyArmorStand: "&c&lHey! &7You can't place it here, there are more than {max} armor stands in this chunk!"
