@@ -14,6 +14,9 @@ import org.bukkit.Location;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.xSavior_of_God.ArmorStandLimiter.externals.HolographicDisplays;
+import com.xSavior_of_God.ArmorStandLimiter.externals.ModelEngine;
 import com.xSavior_of_God.ArmorStandLimiter.notifications.Notifications;
 
 public class Main extends JavaPlugin {
@@ -49,11 +52,22 @@ public class Main extends JavaPlugin {
     }
     instance = this;
     loadConfig();
+    
     if (ChecksDisableIfHolographicDisplaysEntityPart && !Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays")) {
       Bukkit.getConsoleSender()
-      .sendMessage(ChatColor.translateAlternateColorCodes('&',"&cHolographicDisplays is not installed or not enabled."));
+      .sendMessage(ChatColor.translateAlternateColorCodes('&',"&cHolographicDisplays is not installed or is disabled."));
       ChecksDisableIfHolographicDisplaysEntityPart = false;
     }
+    if(ChecksDisableIfIsModelEngineEntity && !Bukkit.getPluginManager().isPluginEnabled("ModelEngine")) {
+      Bukkit.getConsoleSender()
+      .sendMessage(ChatColor.translateAlternateColorCodes('&',"&cModelEngine is not installed or is disabled."));
+      ChecksDisableIfIsModelEngineEntity = false;
+    }
+    if(ChecksDisableIfHolographicDisplaysEntityPart)
+      new HolographicDisplays();
+    if(ChecksDisableIfIsModelEngineEntity)
+      new ModelEngine();
+    
     new Notifications();
     Checker check = new Checker();
     check.timerTask();

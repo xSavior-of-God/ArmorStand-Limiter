@@ -75,8 +75,6 @@ public class Checker {
               final ArmorStand arm = (ArmorStand) e;
               if (Utilis.checkArmorStand(arm))
                 continue;
-              if(Main.ChecksDisableIfHolographicDisplaysEntityPart && AddonHolographicDisplays.checkEntity(e))
-                continue;
               Location loc = arm.getLocation();
 
               loc.setY(0);
@@ -155,8 +153,6 @@ public class Checker {
                 final ArmorStand arm = (ArmorStand) e;
                 if (Utilis.checkArmorStand(arm))
                   continue;
-                if(Main.ChecksDisableIfHolographicDisplaysEntityPart && AddonHolographicDisplays.checkEntity(e))
-                  continue;
                 Chunk chunk = arm.getLocation().getChunk();
                 if (localCounterChunk.containsKey(chunk)) {
                   localCounterChunk.replace(chunk, (localCounterChunk.get(chunk) + 1));
@@ -206,8 +202,6 @@ public class Checker {
           }
           final ArmorStand arm = (ArmorStand) e;
           if (Utilis.checkArmorStand(arm))
-            continue;
-          if(Main.ChecksDisableIfHolographicDisplaysEntityPart && AddonHolographicDisplays.checkEntity(e))
             continue;
           Location loc = arm.getLocation();
 
@@ -278,8 +272,6 @@ public class Checker {
             }
             final ArmorStand arm = (ArmorStand) e;
             if (Utilis.checkArmorStand(arm))
-              continue;
-            if(Main.ChecksDisableIfHolographicDisplaysEntityPart && AddonHolographicDisplays.checkEntity(e))
               continue;
             Chunk chunk = arm.getLocation().getChunk();
             if (localCounterChunk.containsKey(chunk)) {
