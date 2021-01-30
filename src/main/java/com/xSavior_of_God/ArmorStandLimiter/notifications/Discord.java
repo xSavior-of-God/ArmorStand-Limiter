@@ -68,7 +68,7 @@ public class Discord {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeER8zwJX-WLGXeIuw94rBioFCUx254ypvcQ&usqp=CAU");
     json.put("thumbnail", JsonX);
     JsonX = new JSONObject();
-    JsonX.put("text", "Created by xSavior_of_God © 2020/" + Year + " HeroxPlugins");
+    JsonX.put("text", "Created by xSavior_of_God @ 2020/" + Year + " HeroxPlugins");
     JsonX.put("icon_url",
         "https://cdn.discordapp.com/icons/577978634569252895/eae04392234904524a7124d07777371f.png?size=128");
     json.put("footer", JsonX);

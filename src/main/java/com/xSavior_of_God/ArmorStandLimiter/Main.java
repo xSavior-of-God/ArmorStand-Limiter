@@ -64,9 +64,9 @@ public class Main extends JavaPlugin {
       ChecksDisableIfIsModelEngineEntity = false;
     }
     if(ChecksDisableIfHolographicDisplaysEntityPart)
-      new HolographicDisplays();
+      Bukkit.getServer().getPluginManager().registerEvents((Listener) new HolographicDisplays(), (Plugin) this);
     if(ChecksDisableIfIsModelEngineEntity)
-      new ModelEngine();
+      Bukkit.getServer().getPluginManager().registerEvents((Listener) new ModelEngine(), (Plugin) this);
     
     new Notifications();
     Checker check = new Checker();
