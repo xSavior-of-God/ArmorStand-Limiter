@@ -67,31 +67,38 @@ public class Checker {
         for (final World w : Bukkit.getServer().getWorlds()) {
           if (Main.ChecksDisabledWorlds.contains(w.getName()))
             continue;
+          if (w.getLoadedChunks().length < 1)
+            return;
           for (final Chunk c : w.getLoadedChunks()) {
-            for (final Entity e : c.getEntities()) {
-              if (!(e instanceof ArmorStand)) {
+            try {
+              if (c.getEntities() == null || c.getEntities().length < 1)
                 continue;
-              }
-              final ArmorStand arm = (ArmorStand) e;
-              if (Utilis.checkArmorStand(arm))
-                continue;
-              Location loc = arm.getLocation();
+              for (final Entity e : c.getEntities()) {
+                if (!(e instanceof ArmorStand)) {
+                  continue;
+                }
+                final ArmorStand arm = (ArmorStand) e;
+                if (Utilis.checkArmorStand(arm))
+                  continue;
+                Location loc = arm.getLocation();
 
-              loc.setY(0);
-              int x = (int) loc.getX();
-              int z = (int) loc.getZ();
-              loc.setX(x);
-              loc.setZ(z);
-              loc.setPitch(0);
-              loc.setYaw(0);
-              Vector vec = new Vector();
-              loc.setDirection(vec);
+                loc.setY(0);
+                int x = (int) loc.getX();
+                int z = (int) loc.getZ();
+                loc.setX(x);
+                loc.setZ(z);
+                loc.setPitch(0);
+                loc.setYaw(0);
+                Vector vec = new Vector();
+                loc.setDirection(vec);
 
-              if (Main.counterBlock.containsKey(loc)) {
-                Main.counterBlock.replace(loc, (Main.counterBlock.get(loc) + 1));
-              } else {
-                Main.counterBlock.put(loc, 1);
+                if (Main.counterBlock.containsKey(loc)) {
+                  Main.counterBlock.replace(loc, (Main.counterBlock.get(loc) + 1));
+                } else {
+                  Main.counterBlock.put(loc, 1);
+                }
               }
+            } catch (ArrayIndexOutOfBoundsException ex) {
             }
           }
         }
@@ -142,6 +149,9 @@ public class Checker {
         for (final World w : Bukkit.getServer().getWorlds()) {
           if (Main.ChecksDisabledWorlds.contains(w.getName()))
             continue;
+
+          if (w.getLoadedChunks().length < 1)
+            return;
           for (final Chunk c : w.getLoadedChunks()) {
             try {
               if (c.getEntities() == null || c.getEntities().length < 1)
@@ -193,33 +203,40 @@ public class Checker {
 
   public void clearBlock() {
     for (final World w : Bukkit.getServer().getWorlds()) {
+      if (Main.ChecksDisabledWorlds.contains(w.getName()))
+        continue;
+      if (w.getLoadedChunks() == null || w.getLoadedChunks().length < 1)
+        continue;
       for (final Chunk c : w.getLoadedChunks()) {
-        if (Main.ChecksDisabledWorlds.contains(w.getName()))
+        if (c.getEntities() == null || c.getEntities().length < 1)
           continue;
-        for (final Entity e : c.getEntities()) {
-          if (!(e instanceof ArmorStand)) {
-            continue;
-          }
-          final ArmorStand arm = (ArmorStand) e;
-          if (Utilis.checkArmorStand(arm))
-            continue;
-          Location loc = arm.getLocation();
+        try {
+          for (final Entity e : c.getEntities()) {
+            if (!(e instanceof ArmorStand)) {
+              continue;
+            }
+            final ArmorStand arm = (ArmorStand) e;
+            if (Utilis.checkArmorStand(arm))
+              continue;
+            Location loc = arm.getLocation();
 
-          loc.setY(0);
-          int x = (int) loc.getX();
-          int z = (int) loc.getZ();
-          loc.setX(x);
-          loc.setZ(z);
-          loc.setPitch(0);
-          loc.setYaw(0);
-          Vector vec = new Vector();
-          loc.setDirection(vec);
+            loc.setY(0);
+            int x = (int) loc.getX();
+            int z = (int) loc.getZ();
+            loc.setX(x);
+            loc.setZ(z);
+            loc.setPitch(0);
+            loc.setYaw(0);
+            Vector vec = new Vector();
+            loc.setDirection(vec);
 
-          if (localCounterBlock.containsKey(loc)) {
-            localCounterBlock.replace(loc, (localCounterBlock.get(loc) + 1));
-          } else {
-            localCounterBlock.put(loc, 1);
+            if (localCounterBlock.containsKey(loc)) {
+              localCounterBlock.replace(loc, (localCounterBlock.get(loc) + 1));
+            } else {
+              localCounterBlock.put(loc, 1);
+            }
           }
+        } catch (ArrayIndexOutOfBoundsException ex) {
         }
       }
     }
@@ -262,6 +279,8 @@ public class Checker {
     for (final World w : Bukkit.getServer().getWorlds()) {
       if (Main.ChecksDisabledWorlds.contains(w.getName()))
         continue;
+      if (w.getLoadedChunks() == null || w.getLoadedChunks().length < 1)
+        continue;
       for (final Chunk c : w.getLoadedChunks()) {
         try {
           if (c.getEntities() == null || c.getEntities().length < 1)
@@ -280,7 +299,6 @@ public class Checker {
               localCounterChunk.put(chunk, 1);
             }
           }
-
         } catch (ArrayIndexOutOfBoundsException ex) {
         }
       }
