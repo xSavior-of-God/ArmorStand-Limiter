@@ -5,3 +5,4 @@ bin/
 .settings/
 .git/
 README.md
+dependency-reduced-pom.xml

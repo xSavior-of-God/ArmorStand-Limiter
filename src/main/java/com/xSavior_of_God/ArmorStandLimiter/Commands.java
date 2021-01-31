@@ -28,8 +28,9 @@ public class Commands implements CommandExecutor {
     if (sender instanceof Player && sender.hasPermission("armorstandlimiter.check") && args.length > 0
         && args[0].equalsIgnoreCase("check")) {
       boolean isChunk = false;
-      String message = "&cThere are &f{c}&c Armor Stands &7(x{x}, z{z} - {type})";
+      String message = "&cThere are &f{c}&c Armor Stands of which only &f&n{i}&c are detected &7(x{x}, z{z} - {type})";
       int c = 0;
+      int i = 0;
 
       if (args.length > 1 && args[1] != null && args[1].equalsIgnoreCase("chunk")) {
         isChunk = true;
@@ -38,8 +39,11 @@ public class Commands implements CommandExecutor {
       final Chunk chunk = ((Player) sender).getLocation().getChunk();
       if (isChunk) {
         for (Entity ent : chunk.getEntities()) {
-          if (ent instanceof ArmorStand)
+          if (ent instanceof ArmorStand) {
             c++;
+            if (Utilis.checkArmorStand((ArmorStand) ent)) i++;
+          }
+          
         }
       } else {
         Location loc = ((Player) sender).getLocation();
@@ -47,14 +51,16 @@ public class Commands implements CommandExecutor {
         int Z = (int) loc.getZ();
 
         for (Entity ent : chunk.getEntities()) {
-          if (ent instanceof ArmorStand && (X == (int) ent.getLocation().getX() && Z == (int) ent.getLocation().getZ()))
+          if (ent instanceof ArmorStand && (X == (int) ent.getLocation().getX() && Z == (int) ent.getLocation().getZ())) {
             c++;
+            if (Utilis.checkArmorStand((ArmorStand) ent)) i++;
+          }
         }
 
       }
 
       sender.sendMessage(
-          ChatColor.translateAlternateColorCodes('&', message.replace("{c}", c + "").replace("{x}", chunk.getX() + "")
+          ChatColor.translateAlternateColorCodes('&', message.replace("{c}", c + "").replace("{i}", (c-i) + "").replace("{x}", chunk.getX() + "")
               .replace("{z}", chunk.getZ() + "").replace("{type}", isChunk ? "chunk" : "xyz")));
       return true;
     } else if (sender instanceof ConsoleCommandSender || sender.hasPermission("armostandlimiter.reload")) {

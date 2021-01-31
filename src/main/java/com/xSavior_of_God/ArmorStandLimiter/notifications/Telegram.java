@@ -3,6 +3,9 @@ package com.xSavior_of_God.ArmorStandLimiter.notifications;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -27,6 +30,9 @@ public class Telegram {
 	}
 
 	public static void messageBuilder(final Location LOC, final int COUNTER, final int LIMIT,  Boolean... TYPES) {
+    final long Time_now = new java.sql.Timestamp(System.currentTimeMillis()).getTime();
+    DateFormat date_format = new SimpleDateFormat("yyyy");
+    final String Year = date_format.format(new Date(Time_now));
 		final double X = LOC.getX();
 		final double Z = LOC.getZ();
 		boolean TYPE = false;
@@ -34,7 +40,7 @@ public class Telegram {
 		final String WORLD = LOC.getWorld().getName();
 		final String MESS = message.replaceAll("%empity%","\u200b").replace("{x}", X + "").replace("{z}", Z + "").replace("{world}", WORLD)
 		    .replace("{counter}", COUNTER + "").replace("{max}", LIMIT + "").replace("{type}", TYPE?"chunk":"xyz");
-		sendMessage(MESS);
+		sendMessage(MESS+"\n \n<code>Created by xSavior_of_God @ 2020/" + Year + " HeroxPlugins</code>");
 	}
 
 	public static void sendMessage(String text) {

@@ -76,9 +76,11 @@ public class Utilis {
     if (event.isCancelled()) {
       return true;
     }
-    if(arm.getName()!= null && Main.ChecksDisableIfNameContains.contains(arm.getName()))
+    if (arm.getCustomName() != null && arm.isCustomNameVisible() && Main.ChecksDisableIfNameContains != null
+        && Main.ChecksDisableIfNameContains.size() > 0
+        && Main.ChecksDisableIfNameContains.contains(arm.getCustomName().toString()))
       return true;
-    if(Main.ChecksDisableIfNamed && (arm.getName() != null && arm.getName() != ""))
+    if(Main.ChecksDisableIfNamed && (arm.getCustomName() != null && arm.getCustomName().toString() != "" && arm.isCustomNameVisible()))
       return true;
     if(Main.ChecksDisableIfHasArms && arm.hasArms())
       return true;
