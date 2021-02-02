@@ -72,9 +72,15 @@ public class Utilis {
    
   public static boolean checkArmorStand(ArmorStand arm) {
     onArmorStandRemove event = new onArmorStandRemove(arm);
-    Bukkit.getPluginManager().callEvent(event);
-    if (event.isCancelled()) {
-      return true;
+    if (!Bukkit.isPrimaryThread()) {
+      Bukkit.getScheduler().runTask(Main.instance, new Runnable() {
+        @Override
+        public void run() {
+          Bukkit.getPluginManager().callEvent(event);
+        }
+      });
+    } else {
+      Bukkit.getPluginManager().callEvent(event);
     }
     if (arm.getCustomName() != null && arm.isCustomNameVisible() && Main.ChecksDisableIfNameContains != null
         && Main.ChecksDisableIfNameContains.size() > 0
@@ -94,6 +100,9 @@ public class Utilis {
       return true;
     if(Main.ChecksDisableIfIsInvisible && !arm.isVisible())
       return true;
+    if (event.isCancelled()) {
+      return true;
+    }
     
     return false;
   }
