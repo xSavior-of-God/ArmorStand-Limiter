@@ -2,6 +2,7 @@ package com.xSavior_of_God.ArmorStandLimiter;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,19 +37,19 @@ public class Checker {
 
       @Override
       public void run() {
-        Double TPS = 20.0;
-        Object serverInstance;
+        double TPS = 20.0;
 
         try {
-          serverInstance = Utilis.getNMSClass("MinecraftServer").getMethod("getServer").invoke(null);
-          Field tpsField = serverInstance.getClass().getField("recentTps");
-          double[] tps = ((double[]) tpsField.get(serverInstance));
+          Class<?> craftServer = Class.forName("org.bukkit.craftbukkit." + Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3] + ".CraftServer");
+          Object getServer = craftServer.getMethod("getServer").invoke(Bukkit.getServer());
+          Field tpsField = getServer.getClass().getField("recentTps");
+          double[] tps = ((double[]) tpsField.get(getServer));
           TPS = tps[0];
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-            | SecurityException | NoSuchFieldException e) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException | NoSuchFieldException | ClassNotFoundException e) {
           e.printStackTrace();
           return;
         }
+
         if (TPS < Main.TPSMeterTrigger && myTime < System.currentTimeMillis()) {
           myTime = System.currentTimeMillis() + 1000 * 60 * 2;
           clearBlock();

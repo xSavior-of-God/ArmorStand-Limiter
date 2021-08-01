@@ -18,8 +18,8 @@ public class Commands implements CommandExecutor {
 
   @Override
   public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-    if((sender instanceof ConsoleCommandSender || sender.isOp() || sender.hasPermission("armorstandlimiter.help")) && (args.length < 1) ) {
-      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a&lArmorStandLimite &fCreated. by xSavior_of_God"));
+    if((sender instanceof ConsoleCommandSender || sender.isOp() || sender.hasPermission("armorstandlimiter.help")) && (args.length < 1 || args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")) ) {
+      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eArmorStand&fLimiter &6Created by xSavior_of_God"));
       sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&r"));
       sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cCorrect Usage: &f/asl reload&a,&f /asl check [chunk/xyz]"));
       sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&r"));
@@ -27,7 +27,7 @@ public class Commands implements CommandExecutor {
     }
 
     if ((sender instanceof ConsoleCommandSender || sender.isOp()
-        || sender.hasPermission("armorstandlimiter.test")) && args.length > 0 && args[0].equalsIgnoreCase("test")) {
+        || sender.hasPermission("armorstandlimiter.test")) && args.length > 0 && args[0].equalsIgnoreCase("test") ) {
       Location loc = new Location(Bukkit.getWorlds().get(0), 1, 2, 3);
       Notifications.send(loc, 9999);
       Notifications.send(loc.getChunk(), 9999);
@@ -72,12 +72,16 @@ public class Commands implements CommandExecutor {
               .replace("{z}", chunk.getZ() + "").replace("{type}", isChunk ? "chunk" : "xyz")));
       return true;
     } else if (sender instanceof ConsoleCommandSender || sender.hasPermission("armostandlimiter.reload") && args[0].equalsIgnoreCase("reload")) {
-      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Reloading..."));
-      Bukkit.getServer().getPluginManager()
-          .disablePlugin(Bukkit.getServer().getPluginManager().getPlugin(Main.instance.getName()));
 
-      Bukkit.getServer().getPluginManager()
-          .enablePlugin(Bukkit.getServer().getPluginManager().getPlugin(Main.instance.getName()));
+      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Config Reloading..."));
+
+      Main.instance.reloadConfig();
+      Main.instance.loadConfig();
+
+      String pluginName = Main.instance.getName().toString();
+      Bukkit.getServer().getPluginManager().disablePlugin(Bukkit.getServer().getPluginManager().getPlugin(pluginName));
+
+      Bukkit.getServer().getPluginManager().enablePlugin(Bukkit.getServer().getPluginManager().getPlugin(pluginName));
       sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aReloaded!"));
       return true;
     } else {

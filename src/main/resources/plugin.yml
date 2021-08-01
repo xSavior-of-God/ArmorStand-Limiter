@@ -7,7 +7,8 @@ softdepend: [ModelEngine, HolographicDisplays]
 commands:
   asl:
     description: reload the plugin
-    usage:  /asl 
+    usage:  /asl
+            /asl reload
             /asl test
             /asl check <chunk/xyz>
 permissions:

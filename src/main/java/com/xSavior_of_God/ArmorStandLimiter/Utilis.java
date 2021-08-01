@@ -106,14 +106,4 @@ public class Utilis {
     
     return false;
   }
-  
-  public static Class<?> getNMSClass(final String NAME) {
-    try {
-      return Class.forName(
-          "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3] + "." + NAME);
-    } catch (ClassNotFoundException e) {
-      e.printStackTrace();
-    }
-    return null;
-  }
 }

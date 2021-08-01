@@ -32,6 +32,7 @@ public class Main extends JavaPlugin {
   public static Map<Chunk, Integer> counterChunk = new HashMap<Chunk, Integer>();
   public static String noPerms, tooManyArmorStand;
   public static List<String> ChecksDisabledWorlds, ChecksDisableIfNameContains = new ArrayList<String>();
+  public File configFile = null;
 
   public void onEnable() {
     Bukkit.getConsoleSender()
@@ -39,17 +40,7 @@ public class Main extends JavaPlugin {
             "\r\n" + "\r\n" + "&e /\\   _  _   _   _ &e(_  |_  _   _   _|   &f|   .  _  . |_  _  _\r\n"
                 + "&e/--\\ |  ||| (_) |  &e__) |_ (_| | ) (_|   &f|__ | ||| | |_ (- | \r\n" + "&7v"
                 + getDescription().getVersion() + "\r\n" + "&cCreated by xSavior_of_God \r\n" + "\r\n "));
-    final File configFile = new File(this.getDataFolder(), "config.yml");
-    if (!configFile.exists()) {
-      saveResource("config.yml", false);
-    }
-    CommentedConfiguration cfg = CommentedConfiguration.loadConfiguration(configFile);
-    try {
-      cfg.syncWithConfig(configFile, this.getResource("config.yml"));
-    } catch (IOException e) {
-      e.printStackTrace();
-      return;
-    }
+
     instance = this;
     loadConfig();
     
@@ -78,7 +69,23 @@ public class Main extends JavaPlugin {
     LEGACY = (Bukkit.getVersion().contains("1.8")) ? true : false;
   }
 
-  private void loadConfig() {
+  public void loadConfig() {
+    if(configFile == null)
+      configFile = new File(getDataFolder(), "config.yml");
+    if (!configFile.exists()) {
+      saveResource("config.yml", false);
+    }
+
+    CommentedConfiguration cfg = CommentedConfiguration.loadConfiguration(configFile);
+    try {
+      System.out.println("config.yml: "+((getResource("config.yml") == null)?"is null": "not null"));
+      System.out.println("configFile: "+((configFile == null)?"is null": "not null"));
+
+      cfg.syncWithConfig(configFile, getResource("config.yml"));
+    } catch (Exception e) {
+      //e.printStackTrace();
+    }
+
     armorStandLimitBlockTrigger = getConfig().getInt("ArmorStandLimit.Block.Trigger");
     armorStandLimitChunkTrigger = getConfig().getInt("ArmorStandLimit.Chunk.Trigger");
     armorStandLimitBlockTaskRefersh = getConfig().getInt("ArmorStandLimit.Block.Task.Refresh");
