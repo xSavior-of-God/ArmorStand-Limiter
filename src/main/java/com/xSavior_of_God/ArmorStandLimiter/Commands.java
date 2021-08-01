@@ -18,6 +18,14 @@ public class Commands implements CommandExecutor {
 
   @Override
   public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+    if((sender instanceof ConsoleCommandSender || sender.isOp() || sender.hasPermission("armorstandlimiter.help")) && (args.length < 1) ) {
+      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a&lArmorStandLimite &fCreated. by xSavior_of_God"));
+      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&r"));
+      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cCorrect Usage: &f/asl reload&a,&f /asl check [chunk/xyz]"));
+      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&r"));
+      return true;
+    }
+
     if ((sender instanceof ConsoleCommandSender || sender.isOp()
         || sender.hasPermission("armorstandlimiter.test")) && args.length > 0 && args[0].equalsIgnoreCase("test")) {
       Location loc = new Location(Bukkit.getWorlds().get(0), 1, 2, 3);
@@ -43,7 +51,7 @@ public class Commands implements CommandExecutor {
             c++;
             if (Utilis.checkArmorStand((ArmorStand) ent)) i++;
           }
-          
+
         }
       } else {
         Location loc = ((Player) sender).getLocation();
@@ -60,14 +68,14 @@ public class Commands implements CommandExecutor {
       }
 
       sender.sendMessage(
-          ChatColor.translateAlternateColorCodes('&', message.replace("{c}", c + "").replace("{i}", (c-i) + "").replace("{x}", chunk.getX() + "")
+          ChatColor.translateAlternateColorCodes('&', message.replace("{c}", c + "").replace("{i}", (c - i) + "").replace("{x}", chunk.getX() + "")
               .replace("{z}", chunk.getZ() + "").replace("{type}", isChunk ? "chunk" : "xyz")));
       return true;
-    } else if (sender instanceof ConsoleCommandSender || sender.hasPermission("armostandlimiter.reload")) {
+    } else if (sender instanceof ConsoleCommandSender || sender.hasPermission("armostandlimiter.reload") && args[0].equalsIgnoreCase("reload")) {
       sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Reloading..."));
       Bukkit.getServer().getPluginManager()
           .disablePlugin(Bukkit.getServer().getPluginManager().getPlugin(Main.instance.getName()));
-      Main.instance.reloadConfig();
+
       Bukkit.getServer().getPluginManager()
           .enablePlugin(Bukkit.getServer().getPluginManager().getPlugin(Main.instance.getName()));
       sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aReloaded!"));

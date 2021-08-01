@@ -107,6 +107,7 @@ public class Main extends JavaPlugin {
   }
 
   public void onDisable() {
+    Main.instance = null;
     Bukkit.getConsoleSender()
         .sendMessage(ChatColor.translateAlternateColorCodes('&', "&cArmorStand Limiter &cUnLoaded   Bye! Bye!"));
   }
