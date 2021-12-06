@@ -22,8 +22,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class Events implements Listener {
 
-  @SuppressWarnings("deprecation")
-  @EventHandler(priority = EventPriority.NORMAL)
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
   public void onPlaceArmorStand(PlayerInteractEvent e) {
     if (!Main.LimitArmorStandPlaceForChunk || e.isCancelled())
       return;
@@ -50,7 +49,7 @@ public class Events implements Listener {
     }
   }
 
-  @EventHandler(priority = EventPriority.NORMAL)
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
   public void onBlockDispenseEvent(BlockDispenseEvent e) {
     if (!Main.DisableDispenserSpawningArmorstand || e.isCancelled()) 
       return;
@@ -61,7 +60,7 @@ public class Events implements Listener {
     }
   }
 
-  @EventHandler(priority = EventPriority.NORMAL)
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
   public void onEntitySpawnEvent(EntitySpawnEvent e) {
     if (!Main.EventsDisableArmorStandMovingWater || e.isCancelled())
       return;
@@ -74,7 +73,7 @@ public class Events implements Listener {
     }
   }
 
-  @EventHandler(priority = EventPriority.NORMAL)
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
   public void onBlockPistonExtendEvent(BlockPistonExtendEvent e) {
     if (!Main.EventsDisableArmorStandMovingPiston || e.isCancelled())
       return;

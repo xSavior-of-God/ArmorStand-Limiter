@@ -2,7 +2,7 @@
     <groupId>com.xSavior_of_God</groupId>
     <artifactId>ArmorStand-Limiter</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <version>1.4</version>
+    <version>1.5</version>
     <build>
         <defaultGoal>clean install</defaultGoal>
         <finalName>ArmorStand-Limiter v${project.version}</finalName>
@@ -41,14 +41,21 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.4</version>
                 <executions>
                     <execution>
-                        <id>shaded</id>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
                         </goals>
+                        <configuration>
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.json</pattern>
+                                    <shadedPattern>com.heroxplugins.external.ArmorStandLimiter.org.json</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

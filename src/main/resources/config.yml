@@ -65,7 +65,7 @@ ArmorStandLimit:
     # ( Required ModelEngine https://www.spigotmc.org/resources/79477/ )
     DisableIfIsModelEngineEntity: false
 
-noPerms: "&cNo perms!"
+noPerms: "&cUnknown Command or you don't have permissions!"
 tooManyArmorStand: "&c&lHey! &7You can't place it here, there are more than {max} armor stands in this chunk!"
 
 # TPS Meter will allow you to analyze the tps every tick, 

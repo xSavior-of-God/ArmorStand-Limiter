@@ -1,5 +1,6 @@
 package com.xSavior_of_God.ArmorStandLimiter;
 
+import com.xSavior_of_God.ArmorStandLimiter.utils.Reload;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
@@ -73,15 +74,10 @@ public class Commands implements CommandExecutor {
       return true;
     } else if (sender instanceof ConsoleCommandSender || sender.hasPermission("armostandlimiter.reload") && args[0].equalsIgnoreCase("reload")) {
 
-      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Config Reloading..."));
+      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6AReloading..."));
 
-      Main.instance.reloadConfig();
-      Main.instance.loadConfig();
+      Reload.reload(Main.instance.getName());
 
-      String pluginName = Main.instance.getName().toString();
-      Bukkit.getServer().getPluginManager().disablePlugin(Bukkit.getServer().getPluginManager().getPlugin(pluginName));
-
-      Bukkit.getServer().getPluginManager().enablePlugin(Bukkit.getServer().getPluginManager().getPlugin(pluginName));
       sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aReloaded!"));
       return true;
     } else {
