@@ -2,14 +2,10 @@ package com.xSavior_of_God.ArmorStandLimiter;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
@@ -65,24 +61,29 @@ public class Checker {
 
             @Override
             public void run() {
+                Main.counterBlock.clear();
                 for (final World w : Bukkit.getServer().getWorlds()) {
                     if (Main.ChecksDisabledWorlds.contains(w.getName()))
                         continue;
-                    if (w.getLoadedChunks().length < 1) {
+
+                    if (w.getLoadedChunks().length < 1)
                         continue;
-                    }
+
 
                     for (final Chunk c : w.getLoadedChunks()) {
                         try {
                             if (c.getEntities() == null || c.getEntities().length < 1)
                                 continue;
+
                             for (final Entity e : c.getEntities()) {
                                 if (!(e instanceof ArmorStand)) {
                                     continue;
                                 }
+
                                 final ArmorStand arm = (ArmorStand) e;
                                 if (Utilis.checkArmorStand(arm))
                                     continue;
+
                                 Location loc = arm.getLocation();
 
                                 loc.setY(0);
@@ -187,6 +188,7 @@ public class Checker {
 
             @Override
             public void run() {
+                localCounterChunk.clear();
                 for (final World w : Bukkit.getServer().getWorlds()) {
                     if (Main.ChecksDisabledWorlds.contains(w.getName()))
                         continue;
@@ -269,6 +271,7 @@ public class Checker {
     }
 
     public void clearBlock() {
+        localCounterBlock.clear();
         for (final World w : Bukkit.getServer().getWorlds()) {
             if (Main.ChecksDisabledWorlds.contains(w.getName()))
                 continue;
@@ -343,6 +346,7 @@ public class Checker {
     }
 
     public void clearChunk() {
+        Main.ChecksDisabledWorlds.clear();
         for (final World w : Bukkit.getServer().getWorlds()) {
             if (Main.ChecksDisabledWorlds.contains(w.getName()))
                 continue;
