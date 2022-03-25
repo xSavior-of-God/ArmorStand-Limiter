@@ -13,6 +13,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.Material;
 import org.json.JSONObject;
 
 import com.xSavior_of_God.ArmorStandLimiter.api.events.onArmorStandRemove;
@@ -92,7 +93,8 @@ public class Utilis {
       return true;
     if(Main.ChecksDisableIfHasNotBasePlate && !arm.hasBasePlate())
       return true;
-    if(Main.ChecksDisableIfHasHelmet && arm.getHelmet() != null)
+    //TODO: Check if armorstands have an item in any equipment slot...
+    if(Main.ChecksDisableIfHasHelmet && arm.getHelmet() != null && arm.getHelmet().getType() != Material.AIR)
       return true;
     if(!Main.LEGACY && checkArmorStand_for113PLUS(arm))
       return true;
