@@ -57,6 +57,12 @@ ArmorStandLimit:
     DisableIfHasNotBasePlate: true
     # Disable removal if Armor Stand has Helmet
     DisableIfHasHelmet: false
+    # Disable removal if Armor Stand has Chestplate
+    DisableIfHasChestplate: false
+    # Disable removal if Armor Stand has Leggings
+    DisableIfHasLeggings: false
+    # Disable removal if Armor Stand has Boots
+    DisableIfHasBoots: false
     # Disable removal if Armor Stand is small
     DisableIfIsSmall: true
     # Disable if an entity is part of a hologram
@@ -86,10 +92,9 @@ Events:
   DisableDispenserSpawningArmorstand: false
   # Do you want to disable the armor stand from moving...
   DisableArmorStandMoving:
-    # in water ( This option will also disable the armorstand gravity! 
-               # if you know an alternative way to fix this problem 
-               # let me know! )
-    Water: false
+    # Gravity
+    #( This option also disables movement in the water )
+    Gravity: false
     # pushed by a piston
     Piston: false
 

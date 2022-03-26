@@ -93,8 +93,13 @@ public class Utilis {
       return true;
     if(Main.ChecksDisableIfHasNotBasePlate && !arm.hasBasePlate())
       return true;
-    //TODO: Check if armorstands have an item in any equipment slot...
-    if(Main.ChecksDisableIfHasHelmet && arm.getHelmet() != null && arm.getHelmet().getType() != Material.AIR)
+    if(Main.ChecksDisableIfHasHelmet && arm.getEquipment().getHelmet() != null && arm.getEquipment().getHelmet().getType() != Material.AIR)
+      return true;
+    if(Main.ChecksDisableIfHasChestplate && arm.getEquipment().getChestplate() != null && arm.getEquipment().getChestplate().getType() != Material.AIR)
+      return true;
+    if(Main.ChecksDisableIfHasLeggings && arm.getEquipment().getLeggings() != null && arm.getEquipment().getLeggings().getType() != Material.AIR)
+      return true;
+    if(Main.ChecksDisableIfHasBoots && arm.getEquipment().getBoots() != null && arm.getEquipment().getBoots().getType() != Material.AIR)
       return true;
     if(!Main.LEGACY && checkArmorStand_for113PLUS(arm))
       return true;

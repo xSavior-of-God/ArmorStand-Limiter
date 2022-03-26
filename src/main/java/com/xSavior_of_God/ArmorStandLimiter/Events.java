@@ -62,7 +62,7 @@ public class Events implements Listener {
 
   @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
   public void onEntitySpawnEvent(EntitySpawnEvent e) {
-    if (!Main.EventsDisableArmorStandMovingWater || e.isCancelled())
+    if (!Main.EventsDisableArmorStandMovingGravity || e.isCancelled())
       return;
     if(Main.ChecksDisabledWorlds.contains(e.getEntity().getWorld().getName()))
       return;
