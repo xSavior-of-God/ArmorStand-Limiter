@@ -2,7 +2,7 @@
     <groupId>com.xSavior_of_God</groupId>
     <artifactId>ArmorStand-Limiter</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <version>1.5</version>
+    <version>1.6</version>
     <build>
         <defaultGoal>clean install</defaultGoal>
         <finalName>ArmorStand-Limiter v${project.version}</finalName>
