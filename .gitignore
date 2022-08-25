@@ -5,5 +5,4 @@ bin/
 .settings/
 .git/
 .idea/
-README.md
 dependency-reduced-pom.xml
