@@ -34,11 +34,8 @@ picture
 | With ArmorStand Limiter                                                | Without ArmorStand Limiter                                                |
 |------------------------------------------------------------------------|---------------------------------------------------------------------------|
 | ![with 1](https://media.giphy.com/media/KIAEOaU7DQ0zMV3tNG/giphy.gif)  | ![without 1](https://media.giphy.com/media/tEMxrfDqlsOxr3Ft8N/giphy.gif)  |
-|
 | ![with 2](https://media.giphy.com/media/cWRZo5KXvXQqSZsYro/giphy.gif)  | ![without 2](https://media.giphy.com/media/8fI4hdymXqI8S5yjKX/giphy.gif)  |
-|
 | ![with 3](https://media.giphy.com/media/Gic4t11kRXLkDZnyxL/giphy.gif)  | ![without 3](https://media.giphy.com/media/zLbGnlhX0eZJ9KzrEh/giphy.gif)  |
-|
 | ![with 4](https://media1.giphy.com/media/iwZOd2zAndB8WrBWaG/giphy.gif) | ![without 4](https://media1.giphy.com/media/piOLmBeN2Ew9ZwMA1Z/giphy.gif) |
 
 ## Commands
