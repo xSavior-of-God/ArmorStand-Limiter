@@ -1,6 +1,5 @@
 package com.xSavior_of_God.ArmorStandLimiter.utils;
 
-import com.xSavior_of_God.ArmorStandLimiter.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.PluginCommand;
@@ -18,8 +17,6 @@ import java.util.Map;
 import java.util.SortedSet;
 
 public class Reload {
-
-
     /**
      * Loads and enables a plugin.
      *
@@ -32,8 +29,7 @@ public class Reload {
 
         File pluginDir = new File("plugins");
 
-        if (!pluginDir.isDirectory())
-            return "";
+        if (!pluginDir.isDirectory()) return "";
 
         File pluginFile = new File(pluginDir, name + ".jar");
 
@@ -127,11 +123,9 @@ public class Reload {
 
         pluginManager.disablePlugin(plugin);
 
-        if (plugins != null && plugins.contains(plugin))
-            plugins.remove(plugin);
+        if (plugins != null && plugins.contains(plugin)) plugins.remove(plugin);
 
-        if (names != null && names.containsKey(name))
-            names.remove(name);
+        if (names != null && names.containsKey(name)) names.remove(name);
 
         if (listeners != null && reloadlisteners) for (SortedSet<RegisteredListener> set : listeners.values())
             for (Iterator<RegisteredListener> it = set.iterator(); it.hasNext(); ) {

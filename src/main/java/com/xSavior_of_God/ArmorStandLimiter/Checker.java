@@ -13,24 +13,18 @@ import org.bukkit.util.Vector;
 import com.xSavior_of_God.ArmorStandLimiter.notifications.Notifications;
 
 public class Checker {
-
     long myTime = System.currentTimeMillis();
     private static Map<Location, Integer> localCounterBlock = new HashMap<Location, Integer>();
     private static Map<Chunk, Integer> localCounterChunk = new HashMap<Chunk, Integer>();
 
     public void timerTask() {
-        if (Main.TPSMeterEnabled)
-            TPSMeterTask();
-        if (Main.armorStandLimitBlockTaskEnabled)
-            taskBlock();
-        if (Main.armorStandLimitChunkTaskEnabled)
-            taskChunk();
-
+        if (Main.TPSMeterEnabled) TPSMeterTask();
+        if (Main.armorStandLimitBlockTaskEnabled) taskBlock();
+        if (Main.armorStandLimitChunkTaskEnabled) taskChunk();
     }
 
     public void TPSMeterTask() {
         Bukkit.getScheduler().runTaskTimer(Main.instance, new Runnable() {
-
             @Override
             public void run() {
                 double TPS = 20.0;
@@ -41,7 +35,8 @@ public class Checker {
                     Field tpsField = getServer.getClass().getField("recentTps");
                     double[] tps = ((double[]) tpsField.get(getServer));
                     TPS = tps[0];
-                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException | NoSuchFieldException | ClassNotFoundException e) {
+                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException |
+                         NoSuchMethodException | SecurityException | NoSuchFieldException | ClassNotFoundException e) {
                     e.printStackTrace();
                     return;
                 }
@@ -58,22 +53,18 @@ public class Checker {
 
     private void taskBlock() {
         Main.instance.getServer().getScheduler().runTaskTimerAsynchronously(Main.instance, new Runnable() {
-
             @Override
             public void run() {
                 Main.counterBlock.clear();
                 for (final World w : Bukkit.getServer().getWorlds()) {
-                    if (Main.ChecksDisabledWorlds.contains(w.getName()))
-                        continue;
+                    if (Main.ChecksDisabledWorlds.contains(w.getName())) continue;
 
-                    if (w.getLoadedChunks().length < 1)
-                        continue;
+                    if (w.getLoadedChunks().length < 1) continue;
 
 
                     for (final Chunk c : w.getLoadedChunks()) {
                         try {
-                            if (c.getEntities() == null || c.getEntities().length < 1)
-                                continue;
+                            if (c.getEntities() == null || c.getEntities().length < 1) continue;
 
                             for (final Entity e : c.getEntities()) {
                                 if (!(e instanceof ArmorStand)) {
@@ -81,8 +72,7 @@ public class Checker {
                                 }
 
                                 final ArmorStand arm = (ArmorStand) e;
-                                if (Utilis.checkArmorStand(arm))
-                                    continue;
+                                if (Utils.checkArmorStand(arm)) continue;
 
                                 Location loc = arm.getLocation();
 
@@ -120,8 +110,7 @@ public class Checker {
                                             continue;
                                         }
                                         final ArmorStand arm = (ArmorStand) e;
-                                        if (Utilis.checkArmorStand(arm))
-                                            continue;
+                                        if (Utils.checkArmorStand(arm)) continue;
                                         Location loc = arm.getLocation();
 
                                         loc.setY(0);
@@ -151,8 +140,7 @@ public class Checker {
                                     continue;
                                 }
                                 final ArmorStand arm = (ArmorStand) e;
-                                if (Utilis.checkArmorStand(arm))
-                                    continue;
+                                if (Utils.checkArmorStand(arm)) continue;
                                 Location loc = arm.getLocation();
 
                                 loc.setY(0);
@@ -190,8 +178,7 @@ public class Checker {
             public void run() {
                 localCounterChunk.clear();
                 for (final World w : Bukkit.getServer().getWorlds()) {
-                    if (Main.ChecksDisabledWorlds.contains(w.getName()))
-                        continue;
+                    if (Main.ChecksDisabledWorlds.contains(w.getName())) continue;
                     if (w.getLoadedChunks().length < 1) {
                         continue;
                     }
@@ -199,15 +186,13 @@ public class Checker {
 
                     for (final Chunk c : w.getLoadedChunks()) {
                         try {
-                            if (c.getEntities() == null || c.getEntities().length < 1)
-                                continue;
+                            if (c.getEntities() == null || c.getEntities().length < 1) continue;
                             for (final Entity e : c.getEntities()) {
                                 if (!(e instanceof ArmorStand)) {
                                     continue;
                                 }
                                 final ArmorStand arm = (ArmorStand) e;
-                                if (Utilis.checkArmorStand(arm))
-                                    continue;
+                                if (Utils.checkArmorStand(arm)) continue;
                                 Chunk chunk = arm.getLocation().getChunk();
                                 if (localCounterChunk.containsKey(chunk)) {
                                     localCounterChunk.replace(chunk, (localCounterChunk.get(chunk) + 1));
@@ -232,8 +217,7 @@ public class Checker {
                                             continue;
                                         }
                                         final ArmorStand arm = (ArmorStand) e;
-                                        if (Utilis.checkArmorStand(arm))
-                                            continue;
+                                        if (Utils.checkArmorStand(arm)) continue;
                                         Chunk mychunk = arm.getLocation().getChunk();
                                         if (chunk.toString().equalsIgnoreCase(mychunk.toString())) {
                                             try {
@@ -251,8 +235,7 @@ public class Checker {
                                     continue;
                                 }
                                 final ArmorStand arm = (ArmorStand) e;
-                                if (Utilis.checkArmorStand(arm))
-                                    continue;
+                                if (Utils.checkArmorStand(arm)) continue;
                                 Chunk mychunk = arm.getLocation().getChunk();
                                 if (chunk.toString().equalsIgnoreCase(mychunk.toString())) {
                                     try {
@@ -273,21 +256,17 @@ public class Checker {
     public void clearBlock() {
         localCounterBlock.clear();
         for (final World w : Bukkit.getServer().getWorlds()) {
-            if (Main.ChecksDisabledWorlds.contains(w.getName()))
-                continue;
-            if (w.getLoadedChunks() == null || w.getLoadedChunks().length < 1)
-                continue;
+            if (Main.ChecksDisabledWorlds.contains(w.getName())) continue;
+            if (w.getLoadedChunks() == null || w.getLoadedChunks().length < 1) continue;
             for (final Chunk c : w.getLoadedChunks()) {
-                if (c.getEntities() == null || c.getEntities().length < 1)
-                    continue;
+                if (c.getEntities() == null || c.getEntities().length < 1) continue;
                 try {
                     for (final Entity e : c.getEntities()) {
                         if (!(e instanceof ArmorStand)) {
                             continue;
                         }
                         final ArmorStand arm = (ArmorStand) e;
-                        if (Utilis.checkArmorStand(arm))
-                            continue;
+                        if (Utils.checkArmorStand(arm)) continue;
                         Location loc = arm.getLocation();
 
                         loc.setY(0);
@@ -319,8 +298,7 @@ public class Checker {
                         continue;
                     }
                     final ArmorStand arm = (ArmorStand) e;
-                    if (Utilis.checkArmorStand(arm))
-                        continue;
+                    if (Utils.checkArmorStand(arm)) continue;
                     Location loc = arm.getLocation();
 
                     loc.setY(0);
@@ -348,21 +326,17 @@ public class Checker {
     public void clearChunk() {
         Main.ChecksDisabledWorlds.clear();
         for (final World w : Bukkit.getServer().getWorlds()) {
-            if (Main.ChecksDisabledWorlds.contains(w.getName()))
-                continue;
-            if (w.getLoadedChunks() == null || w.getLoadedChunks().length < 1)
-                continue;
+            if (Main.ChecksDisabledWorlds.contains(w.getName())) continue;
+            if (w.getLoadedChunks() == null || w.getLoadedChunks().length < 1) continue;
             for (final Chunk c : w.getLoadedChunks()) {
                 try {
-                    if (c.getEntities() == null || c.getEntities().length < 1)
-                        continue;
+                    if (c.getEntities() == null || c.getEntities().length < 1) continue;
                     for (final Entity e : c.getEntities()) {
                         if (!(e instanceof ArmorStand)) {
                             continue;
                         }
                         final ArmorStand arm = (ArmorStand) e;
-                        if (Utilis.checkArmorStand(arm))
-                            continue;
+                        if (Utils.checkArmorStand(arm)) continue;
                         Chunk chunk = arm.getLocation().getChunk();
                         if (localCounterChunk.containsKey(chunk)) {
                             localCounterChunk.replace(chunk, (localCounterChunk.get(chunk) + 1));
@@ -383,8 +357,7 @@ public class Checker {
                         continue;
                     }
                     final ArmorStand arm = (ArmorStand) e;
-                    if (Utilis.checkArmorStand(arm))
-                        continue;
+                    if (Utils.checkArmorStand(arm)) continue;
                     Chunk mychunk = arm.getLocation().getChunk();
                     if (chunk.toString().equalsIgnoreCase(mychunk.toString())) {
                         try {
