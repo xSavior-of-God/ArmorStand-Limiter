@@ -22,14 +22,33 @@ import com.xSavior_of_God.ArmorStandLimiter.notifications.Notifications;
 
 public class Main extends JavaPlugin {
     public static Main instance;
-    public static int armorStandLimitBlockTrigger, armorStandLimitChunkTrigger, armorStandLimitBlockTaskRefersh,
-            armorStandLimitChunkTaskRefersh, TPSMeterTrigger;
-    public static boolean armorStandLimitBlockTaskEnabled, armorStandLimitChunkTaskEnabled, TPSMeterEnabled,
-            LimitArmorStandPlaceForChunk, DisableDispenserSpawningArmorstand, EventsDisableArmorStandMovingWater, EventsDisableArmorStandMovingGravity,
-            EventsDisableArmorStandMovingPiston, ChecksDisableIfNamed, ChecksDisableIfIsInvulnerable,
-            ChecksDisableIfIsInvisible, ChecksDisableIfHasArms, ChecksDisableIfIsSmall, ChecksDisableIfHasNotBasePlate,
-            ChecksDisableIfHasHelmet, ChecksDisableIfHasChestplate, ChecksDisableIfHasLeggings, ChecksDisableIfHasBoots,
-            LEGACY, ChecksDisableIfHolographicDisplaysEntityPart, ChecksDisableIfIsModelEngineEntity;
+    public static int
+            armorStandLimitBlockTrigger,
+            armorStandLimitChunkTrigger,
+            armorStandLimitBlockTaskRefresh,
+            armorStandLimitChunkTaskRefresh,
+            TPSMeterTrigger;
+    public static boolean
+            armorStandLimitBlockTaskEnabled,
+            armorStandLimitChunkTaskEnabled,
+            TPSMeterEnabled,
+            LimitArmorStandPlaceForChunk,
+            DisableDispenserSpawningArmorStand,
+            EventsDisableArmorStandMovingGravity,
+            EventsDisableArmorStandMovingPiston,
+            ChecksDisableIfNamed,
+            ChecksDisableIfIsInvulnerable,
+            ChecksDisableIfIsInvisible,
+            ChecksDisableIfHasArms,
+            ChecksDisableIfIsSmall,
+            ChecksDisableIfHasNotBasePlate,
+            ChecksDisableIfHasHelmet,
+            ChecksDisableIfHasChestPlate,
+            ChecksDisableIfHasLeggings,
+            ChecksDisableIfHasBoots,
+            ChecksDisableIfHolographicDisplaysEntityPart,
+            ChecksDisableIfIsModelEngineEntity,
+            LEGACY;
     public static Map<Location, Integer> counterBlock = new HashMap<Location, Integer>();
     public static Map<Chunk, Integer> counterChunk = new HashMap<Chunk, Integer>();
     public static String noPerms, tooManyArmorStand;
@@ -58,6 +77,7 @@ public class Main extends JavaPlugin {
                     .sendMessage(ChatColor.translateAlternateColorCodes('&', "&cModelEngine is not installed or is disabled."));
             ChecksDisableIfIsModelEngineEntity = false;
         }
+
         if (ChecksDisableIfHolographicDisplaysEntityPart)
             Bukkit.getServer().getPluginManager().registerEvents((Listener) new HolographicDisplays(), (Plugin) this);
         if (ChecksDisableIfIsModelEngineEntity)
@@ -70,7 +90,7 @@ public class Main extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents((Listener) new Events(), (Plugin) this);
         Bukkit.getConsoleSender()
                 .sendMessage(ChatColor.translateAlternateColorCodes('&', "&eArmorStand &fLimiter &aLoaded!"));
-        LEGACY = (Bukkit.getVersion().contains("1.8")) ? true : false;
+        LEGACY = Bukkit.getVersion().contains("1.8");
     }
 
     public void loadConfig() {
@@ -89,15 +109,14 @@ public class Main extends JavaPlugin {
 
         armorStandLimitBlockTrigger = getConfig().getInt("ArmorStandLimit.Block.Trigger");
         armorStandLimitChunkTrigger = getConfig().getInt("ArmorStandLimit.Chunk.Trigger");
-        armorStandLimitBlockTaskRefersh = getConfig().getInt("ArmorStandLimit.Block.Task.Refresh");
-        armorStandLimitChunkTaskRefersh = getConfig().getInt("ArmorStandLimit.Chunk.Task.Refresh");
+        armorStandLimitBlockTaskRefresh = getConfig().getInt("ArmorStandLimit.Block.Task.Refresh");
+        armorStandLimitChunkTaskRefresh = getConfig().getInt("ArmorStandLimit.Chunk.Task.Refresh");
         armorStandLimitBlockTaskEnabled = getConfig().getBoolean("ArmorStandLimit.Block.Task.Enabled");
         armorStandLimitChunkTaskEnabled = getConfig().getBoolean("ArmorStandLimit.Chunk.Task.Enabled");
         TPSMeterTrigger = getConfig().getInt("TPSMeter.Trigger");
         TPSMeterEnabled = getConfig().getBoolean("TPSMeter.Enabled");
         LimitArmorStandPlaceForChunk = getConfig().getBoolean("Events.LimitArmorStandPlaceForChunk");
-        DisableDispenserSpawningArmorstand = getConfig().getBoolean("Events.DisableDispenserSpawningArmorstand");
-        //EventsDisableArmorStandMovingWater = getConfig().getBoolean("Events.DisableArmorStandMoving.Water");
+        DisableDispenserSpawningArmorStand = getConfig().getBoolean("Events.DisableDispenserSpawningArmorStand");
         EventsDisableArmorStandMovingGravity = getConfig().getBoolean("Events.DisableArmorStandMoving.Gravity");
         EventsDisableArmorStandMovingPiston = getConfig().getBoolean("Events.DisableArmorStandMoving.Piston");
         noPerms = getConfig().getString("noPerms");
@@ -110,7 +129,7 @@ public class Main extends JavaPlugin {
         ChecksDisableIfHasArms = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasArms");
         ChecksDisableIfHasNotBasePlate = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasNotBasePlate");
         ChecksDisableIfHasHelmet = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasHelmet");
-        ChecksDisableIfHasChestplate = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasChestplate");
+        ChecksDisableIfHasChestPlate = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasChestPlate");
         ChecksDisableIfHasLeggings = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasLeggings");
         ChecksDisableIfHasBoots = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfHasBoots");
         ChecksDisableIfIsSmall = getConfig().getBoolean("ArmorStandLimit.Checks.DisableIfIsSmall");
@@ -123,5 +142,4 @@ public class Main extends JavaPlugin {
         Bukkit.getConsoleSender()
                 .sendMessage(ChatColor.translateAlternateColorCodes('&', "&cArmorStand Limiter &cUnLoaded   Bye! Bye!"));
     }
-
 }

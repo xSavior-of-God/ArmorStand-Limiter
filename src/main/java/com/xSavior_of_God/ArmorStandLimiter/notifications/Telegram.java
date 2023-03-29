@@ -38,7 +38,7 @@ public class Telegram {
         boolean TYPE = false;
         if (TYPES.length > 0) TYPE = TYPES[0];
         final String WORLD = LOC.getWorld().getName();
-        final String MESS = message.replaceAll("%empity%", "\u200b").replace("{x}", X + "").replace("{z}", Z + "").replace("{world}", WORLD).replace("{counter}", COUNTER + "").replace("{max}", LIMIT + "").replace("{type}", TYPE ? "chunk" : "xyz");
+        final String MESS = message.replaceAll("%empty%", "\u200b").replace("{x}", X + "").replace("{z}", Z + "").replace("{world}", WORLD).replace("{counter}", COUNTER + "").replace("{max}", LIMIT + "").replace("{type}", TYPE ? "chunk" : "xyz");
         sendMessage(MESS + "\n \n<code>Created by xSavior_of_God @ 2020/" + Year + " HeroxPlugins</code>");
     }
 
@@ -53,5 +53,4 @@ public class Telegram {
             e.printStackTrace();
         }
     }
-
 }

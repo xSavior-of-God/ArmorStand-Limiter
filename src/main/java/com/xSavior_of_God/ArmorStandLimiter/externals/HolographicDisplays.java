@@ -1,5 +1,7 @@
 package com.xSavior_of_God.ArmorStandLimiter.externals;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
@@ -10,6 +12,7 @@ public class HolographicDisplays implements Listener {
 
     public HolographicDisplays() {
         Enabled = true;
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&aHolographicDisplays support enabled."));
     }
 
     @EventHandler

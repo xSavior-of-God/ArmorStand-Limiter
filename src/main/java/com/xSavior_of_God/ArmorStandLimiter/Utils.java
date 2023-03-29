@@ -65,9 +65,7 @@ public class Utils {
     }
 
     public static boolean checkArmorStand_for113PLUS(ArmorStand arm) {
-        if (Main.ChecksDisableIfIsInvulnerable && arm.isInvulnerable())
-            return true;
-        return false;
+        return Main.ChecksDisableIfIsInvulnerable && arm.isInvulnerable();
     }
 
     public static boolean checkArmorStand(ArmorStand arm) {
@@ -79,9 +77,8 @@ public class Utils {
                     Bukkit.getPluginManager().callEvent(event);
                 }
             });
-        } else {
+        } else
             Bukkit.getPluginManager().callEvent(event);
-        }
         if (arm.getCustomName() != null && arm.isCustomNameVisible() && Main.ChecksDisableIfNameContains != null
                 && Main.ChecksDisableIfNameContains.size() > 0
                 && Main.ChecksDisableIfNameContains.contains(arm.getCustomName().toString()))
@@ -94,7 +91,7 @@ public class Utils {
             return true;
         if (Main.ChecksDisableIfHasHelmet && arm.getEquipment().getHelmet() != null && arm.getEquipment().getHelmet().getType() != Material.AIR)
             return true;
-        if (Main.ChecksDisableIfHasChestplate && arm.getEquipment().getChestplate() != null && arm.getEquipment().getChestplate().getType() != Material.AIR)
+        if (Main.ChecksDisableIfHasChestPlate && arm.getEquipment().getChestplate() != null && arm.getEquipment().getChestplate().getType() != Material.AIR)
             return true;
         if (Main.ChecksDisableIfHasLeggings && arm.getEquipment().getLeggings() != null && arm.getEquipment().getLeggings().getType() != Material.AIR)
             return true;
@@ -106,10 +103,6 @@ public class Utils {
             return true;
         if (Main.ChecksDisableIfIsInvisible && !arm.isVisible())
             return true;
-        if (event.isCancelled()) {
-            return true;
-        }
-
-        return false;
+        return event.isCancelled();
     }
 }

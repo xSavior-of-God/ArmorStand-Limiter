@@ -27,7 +27,7 @@ public class Discord {
             e.printStackTrace();
         }
         title = TITLE;
-        description = DESCRIPTION.replace("%empity%", "\u200b");
+        description = DESCRIPTION.replace("%empty%", "\u200b");
         message = MESSAGE;
         color = Color.decode(COLOR).getRed();
         color = (color << 8) + Color.decode(COLOR).getGreen();
@@ -79,5 +79,4 @@ public class Discord {
             e.printStackTrace();
         }
     }
-
 }

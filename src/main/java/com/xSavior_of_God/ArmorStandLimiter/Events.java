@@ -50,7 +50,7 @@ public class Events implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBlockDispenseEvent(BlockDispenseEvent e) {
-        if (!Main.DisableDispenserSpawningArmorstand || e.isCancelled())
+        if (!Main.DisableDispenserSpawningArmorStand || e.isCancelled())
             return;
         if (Main.ChecksDisabledWorlds.contains(e.getBlock().getWorld().getName()))
             return;

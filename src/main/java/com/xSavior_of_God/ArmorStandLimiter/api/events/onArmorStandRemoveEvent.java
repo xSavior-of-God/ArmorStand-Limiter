@@ -47,9 +47,9 @@ public class onArmorStandRemoveEvent extends Event {
   public boolean isCancelled() {
     return this.isCancelled;
   }
-  
+
   /**
-   * 
+   *
    * @param isCancelled
    */
   public void setCancelled(boolean isCancelled) {

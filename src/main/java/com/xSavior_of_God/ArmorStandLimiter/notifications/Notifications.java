@@ -8,9 +8,25 @@ import org.bukkit.Location;
 import com.xSavior_of_God.ArmorStandLimiter.Main;
 
 public class Notifications {
-    private static boolean notificationsEnabled, telegramEnabled, discordEnabled, consoleEnabled, onlinePlayerEnabled;
-    private static String telegramAPI, telegramToken, telegramMessage, telegramChatID, discordColor, discordWebhook,
-            discordTitle, discordDescription, discordMessage, consoleMessage, onlinePlayerMessage, onlinePlayerPermission;
+    private static boolean
+            notificationsEnabled,
+            telegramEnabled,
+            discordEnabled,
+            consoleEnabled,
+            onlinePlayerEnabled;
+    private static String
+            telegramAPI,
+            telegramToken,
+            telegramMessage,
+            telegramChatID,
+            discordColor,
+            discordWebhook,
+            discordTitle,
+            discordDescription,
+            discordMessage,
+            consoleMessage,
+            onlinePlayerMessage,
+            onlinePlayerPermission;
 
     public Notifications() {
         notificationsEnabled = Main.instance.getConfig().getBoolean("Notifications.Enabled");
@@ -111,5 +127,4 @@ public class Notifications {
             }
         }
     }
-
 }

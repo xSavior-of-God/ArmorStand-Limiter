@@ -64,19 +64,14 @@ public class Commands implements CommandExecutor {
                         if (Utils.checkArmorStand((ArmorStand) ent)) i++;
                     }
                 }
-
             }
-
             sender.sendMessage(
                     ChatColor.translateAlternateColorCodes('&', message.replace("{c}", c + "").replace("{i}", (c - i) + "").replace("{x}", chunk.getX() + "")
                             .replace("{z}", chunk.getZ() + "").replace("{type}", isChunk ? "chunk" : "xyz")));
             return true;
         } else if (sender instanceof ConsoleCommandSender || sender.hasPermission("armostandlimiter.reload") && args[0].equalsIgnoreCase("reload")) {
-
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6AReloading..."));
-
             Reload.reload(Main.instance.getName());
-
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aReloaded!"));
             return true;
         } else {
@@ -84,5 +79,4 @@ public class Commands implements CommandExecutor {
             return true;
         }
     }
-
 }

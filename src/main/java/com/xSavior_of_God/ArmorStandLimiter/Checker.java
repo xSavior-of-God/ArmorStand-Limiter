@@ -156,7 +156,7 @@ public class Checker {
                                 if (loc.toString().equalsIgnoreCase(location.toString())) {
                                     try {
                                         arm.remove();
-                                    } catch (Exception ex) {
+                                    } catch (Exception ignored) {
                                     }
                                     Main.counterBlock.replace(loc, (Main.counterBlock.get(loc) - 1));
                                 }
@@ -168,7 +168,7 @@ public class Checker {
                 });
             }
 
-        }, Main.armorStandLimitBlockTaskRefersh * 60 * 20L, Main.armorStandLimitBlockTaskRefersh * 60 * 20L);
+        }, Main.armorStandLimitBlockTaskRefresh * 60 * 20L, Main.armorStandLimitBlockTaskRefresh * 60 * 20L);
     }
 
     private void taskChunk() {
@@ -200,7 +200,7 @@ public class Checker {
                                     localCounterChunk.put(chunk, 1);
                                 }
                             }
-                        } catch (ArrayIndexOutOfBoundsException ex) {
+                        } catch (ArrayIndexOutOfBoundsException ignored) {
                         }
                     }
                 }
@@ -222,7 +222,7 @@ public class Checker {
                                         if (chunk.toString().equalsIgnoreCase(mychunk.toString())) {
                                             try {
                                                 arm.remove();
-                                            } catch (Exception ex) {
+                                            } catch (Exception ignored) {
                                             }
                                             localCounterChunk.replace(chunk, (localCounterChunk.get(chunk) - 1));
                                         }
@@ -240,7 +240,7 @@ public class Checker {
                                 if (chunk.toString().equalsIgnoreCase(mychunk.toString())) {
                                     try {
                                         arm.remove();
-                                    } catch (Exception ex) {
+                                    } catch (Exception ignored) {
                                     }
                                     localCounterChunk.replace(chunk, (localCounterChunk.get(chunk) - 1));
                                 }
@@ -250,7 +250,7 @@ public class Checker {
                 });
             }
 
-        }, Main.armorStandLimitChunkTaskRefersh * 60 * 20L, Main.armorStandLimitChunkTaskRefersh * 60 * 20L);
+        }, Main.armorStandLimitChunkTaskRefresh * 60 * 20L, Main.armorStandLimitChunkTaskRefresh * 60 * 20L);
     }
 
     public void clearBlock() {
@@ -285,7 +285,7 @@ public class Checker {
                             localCounterBlock.put(loc, 1);
                         }
                     }
-                } catch (ArrayIndexOutOfBoundsException ex) {
+                } catch (ArrayIndexOutOfBoundsException ignored) {
                 }
             }
         }
@@ -314,7 +314,7 @@ public class Checker {
                     if (loc.toString().equalsIgnoreCase(location.toString())) {
                         try {
                             arm.remove();
-                        } catch (Exception ex) {
+                        } catch (Exception ignored) {
                         }
                         localCounterBlock.replace(loc, (localCounterBlock.get(loc) - 1));
                     }
@@ -362,7 +362,7 @@ public class Checker {
                     if (chunk.toString().equalsIgnoreCase(mychunk.toString())) {
                         try {
                             arm.remove();
-                        } catch (Exception ex) {
+                        } catch (Exception ignored) {
                         }
                         localCounterChunk.replace(chunk, (localCounterChunk.get(chunk) - 1));
                     }
@@ -370,5 +370,4 @@ public class Checker {
             }
         });
     }
-
 }

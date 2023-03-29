@@ -494,5 +494,4 @@ public final class CommentedConfiguration extends YamlConfiguration {
             return key.hashCode();
         }
     }
-
 }
