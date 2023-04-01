@@ -130,7 +130,8 @@
             <groupId>com.ticxo.modelengine</groupId>
             <artifactId>api</artifactId>
             <version>R3.1.6</version>
-            <scope>provided</scope>
+            <systemPath>${basedir}/lib/ModelEngineAPI-R3.1.6.jar</systemPath>
+            <scope>system</scope>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>

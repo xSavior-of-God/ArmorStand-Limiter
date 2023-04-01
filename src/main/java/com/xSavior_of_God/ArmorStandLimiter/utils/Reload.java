@@ -6,17 +6,60 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.*;
+import org.yaml.snakeyaml.error.YAMLException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.net.URLClassLoader;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
+import java.nio.file.Path;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 public class Reload {
+    public static PluginDescriptionFile getPluginDescription(File file) throws InvalidDescriptionException {
+        if (file == null)
+            throw new InvalidDescriptionException("File cannot be null");
+
+        JarFile jar = null;
+        InputStream stream = null;
+
+        try {
+            jar = new JarFile(file);
+            JarEntry entry = jar.getJarEntry("plugin.yml");
+
+            if (entry == null) {
+                throw new InvalidDescriptionException(new FileNotFoundException("Jar does not contain plugin.yml"));
+            }
+
+            stream = jar.getInputStream(entry);
+
+            return new PluginDescriptionFile(stream);
+
+        } catch (IOException ex) {
+            throw new InvalidDescriptionException(ex);
+        } catch (YAMLException ex) {
+            throw new InvalidDescriptionException(ex);
+        } finally {
+            if (jar != null) {
+                try {
+                    jar.close();
+                } catch (IOException e) {
+                }
+            }
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+    }
+
     /**
      * Loads and enables a plugin.
      *
@@ -24,12 +67,14 @@ public class Reload {
      */
     public static void load(String name) {
         Plugin target = null;
+        boolean paperLoaded = false;
+
         File pluginDir = new File("plugins");
         if (!pluginDir.isDirectory()) return;
         File pluginFile = new File(pluginDir, name + ".jar");
         if (!pluginFile.isFile()) for (File f : pluginDir.listFiles())
             if (f.getName().endsWith(".jar")) try {
-                PluginDescriptionFile desc = Bukkit.getPluginManager().getPlugins()[0].getPluginLoader().getPluginDescription(f);
+                PluginDescriptionFile desc = getPluginDescription(f);
                 if (desc.getName().equalsIgnoreCase(name)) {
                     pluginFile = f;
                     break;
@@ -38,13 +83,37 @@ public class Reload {
                 return;
             }
         try {
-            target = Bukkit.getPluginManager().loadPlugin(pluginFile);
-        } catch (InvalidDescriptionException | InvalidPluginException e) {
-            e.printStackTrace();
-            return;
+            Class paper = Class.forName("io.papermc.paper.plugin.manager.PaperPluginManagerImpl");
+            Object paperPluginManagerImpl = paper.getMethod("getInstance").invoke(null);
+
+            Field instanceManagerF = paperPluginManagerImpl.getClass().getDeclaredField("instanceManager");
+            instanceManagerF.setAccessible(true);
+            Object instanceManager = instanceManagerF.get(paperPluginManagerImpl);
+
+            Method loadMethod = instanceManager.getClass().getMethod("loadPlugin", Path.class);
+            loadMethod.setAccessible(true);
+            target = (Plugin) loadMethod.invoke(instanceManager, pluginFile.toPath());
+
+            Method enableMethod = instanceManager.getClass().getMethod("enablePlugin", Plugin.class);
+            enableMethod.setAccessible(true);
+            enableMethod.invoke(instanceManager, target);
+
+            paperLoaded = true;
+        } catch (Exception ignore) {
+        } // Paper most likely not loaded
+
+        if (!paperLoaded) {
+            try {
+                target = Bukkit.getPluginManager().loadPlugin(pluginFile);
+            } catch (InvalidDescriptionException e) {
+                e.printStackTrace();
+            } catch (InvalidPluginException e) {
+                e.printStackTrace();
+            }
+
+            target.onLoad();
+            Bukkit.getPluginManager().enablePlugin(target);
         }
-        target.onLoad();
-        Bukkit.getPluginManager().enablePlugin(target);
     }
 
     public static void reload(String pluginName) {
@@ -127,6 +196,34 @@ public class Reload {
                 ex.printStackTrace();
             }
         }
+
+        try {
+
+            Class paper = Class.forName("io.papermc.paper.plugin.manager.PaperPluginManagerImpl");
+            Object paperPluginManagerImpl = paper.getMethod("getInstance").invoke(null);
+
+            Field instanceManagerF = paperPluginManagerImpl.getClass().getDeclaredField("instanceManager");
+            instanceManagerF.setAccessible(true);
+            Object instanceManager = instanceManagerF.get(paperPluginManagerImpl);
+
+            Field lookupNamesF = instanceManager.getClass().getDeclaredField("lookupNames");
+            lookupNamesF.setAccessible(true);
+            Map<String, Object> lookupNames = (Map<String, Object>) lookupNamesF.get(instanceManager);
+
+            Method disableMethod = instanceManager.getClass().getMethod("disablePlugin", Plugin.class);
+            disableMethod.setAccessible(true);
+            disableMethod.invoke(instanceManager, plugin);
+
+            lookupNames.remove(plugin.getName().toLowerCase());
+
+            Field pluginListF = instanceManager.getClass().getDeclaredField("plugins");
+            pluginListF.setAccessible(true);
+            List<Plugin> pluginList = (List<Plugin>) pluginListF.get(instanceManager);
+            pluginList.remove(plugin);
+
+        } catch (Exception ignore) {
+        } // Paper most likely not loaded
+
         System.gc();
     }
 }

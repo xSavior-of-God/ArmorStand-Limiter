@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import com.xSavior_of_God.ArmorStandLimiter.api.events.onArmorStandRemoveEvent;
 
 public class Utils {
+
     public static void apiRequest(final Map<String, Object> PAR, final URL URL) throws IOException {
         StringBuilder postData = new StringBuilder();
 
