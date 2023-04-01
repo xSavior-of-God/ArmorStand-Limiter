@@ -5,13 +5,13 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 /**
- * on Armor Stand Remove
+ * on ArmorStand Remove Event
  * 
  * @author Silviu
  * @version 1.3
  * @since 2021-01-31
  */
-public class onArmorStandRemove extends Event {
+public class onArmorStandRemoveEvent extends Event {
   private static final HandlerList HANDLERS = new HandlerList();
   private boolean isCancelled = false;
   private Entity armorstand;
@@ -28,7 +28,7 @@ public class onArmorStandRemove extends Event {
   /**
    * Constructor
    */
-  public onArmorStandRemove(Entity armorstand) {
+  public onArmorStandRemoveEvent(Entity armorstand) {
     this.armorstand = armorstand;
   }
   
@@ -47,9 +47,9 @@ public class onArmorStandRemove extends Event {
   public boolean isCancelled() {
     return this.isCancelled;
   }
-  
+
   /**
-   * 
+   *
    * @param isCancelled
    */
   public void setCancelled(boolean isCancelled) {
