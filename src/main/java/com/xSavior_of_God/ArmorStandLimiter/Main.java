@@ -48,7 +48,8 @@ public class Main extends JavaPlugin {
             ChecksDisableIfHasBoots,
             ChecksDisableIfHolographicDisplaysEntityPart,
             ChecksDisableIfIsModelEngineEntity,
-            LEGACY;
+            LEGACY,
+            isFolia;
     public static Map<Location, Integer> counterBlock = new HashMap<Location, Integer>();
     public static Map<Chunk, Integer> counterChunk = new HashMap<Chunk, Integer>();
     public static String noPerms, tooManyArmorStand;
@@ -57,12 +58,15 @@ public class Main extends JavaPlugin {
 
     public void onEnable() {
         new Metrics(this, 17051);
+        isFolia = isFolia();
 
         Bukkit.getConsoleSender()
                 .sendMessage(ChatColor.translateAlternateColorCodes('&',
                         "\r\n" + "\r\n" + "&e /\\   _  _   _   _ &e(_  |_  _   _   _|   &f|   .  _  . |_  _  _\r\n"
                                 + "&e/--\\ |  ||| (_) |  &e__) |_ (_| | ) (_|   &f|__ | ||| | |_ (- | \r\n" + "&7v"
                                 + getDescription().getVersion() + "\r\n" + "&cCreated by xSavior_of_God \r\n" + "\r\n "));
+        if(isFolia)
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&fFolia&e support &aEnabled"));
 
         instance = this;
         loadConfig();
@@ -91,6 +95,15 @@ public class Main extends JavaPlugin {
         Bukkit.getConsoleSender()
                 .sendMessage(ChatColor.translateAlternateColorCodes('&', "&eArmorStand &fLimiter &aLoaded!"));
         LEGACY = Bukkit.getVersion().contains("1.8");
+    }
+
+    public static boolean isFolia() {
+        try {
+            Class.forName("io.papermc.paper.threadedregions.RegionizedServerInitEvent");
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+        return true;
     }
 
     public void loadConfig() {

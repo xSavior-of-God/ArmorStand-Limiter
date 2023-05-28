@@ -114,6 +114,10 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/
             </url>
         </repository>
+        <repository>
+            <id>paper-repo</id> <!-- Folia -->
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
         <repository> <!-- Json API -->
             <id>mvn</id>
             <url>https://mvnrepository.com/artifact/org.json/json</url>
@@ -136,6 +140,12 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
+            <version>1.19.4-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.folia</groupId>
+            <artifactId>folia-api</artifactId>
             <version>1.19.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>

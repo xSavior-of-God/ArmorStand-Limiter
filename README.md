@@ -1,6 +1,8 @@
 # ArmorStand-Limiter
 
 ![Java CI with Maven](https://github.com/xSavior-of-God/ArmorStand-Limiter/workflows/Java%20CI%20with%20Maven/badge.svg?branch=main)
+![SpigotMC downloads](https://img.shields.io/badge/dynamic/json?color=orange&label=SpigotMC%20Downloads&query=stats.downloads&url=https%3A%2F%2Fapi.spigotmc.org%2Fsimple%2F0.1%2Findex.php%3Faction%3DgetResource%26id%3D86706&style=for-the-badge&logo=googleanalytics)
+![BuiltByBit downloads]()
 
 allows you to limit armor stands, so you can fix TPS drops caused by a high number of ArmorStands in your server!
 Can be used in all modalities and is fully and easily configurable thanks to its intuitive configuration file.
@@ -44,6 +46,11 @@ picture
 * **/asl check <chunk>** - *Simple command to control how many Armor Stands there are in a chunk or location in the
   world (Perms: `armostandlimiter.check`)*
 * **/asl test** - *Simple command to test the notifications (Perms: `armostandlimiter.test`)*
+
+## Stats
+[![Stats](https://bstats.org/signatures/bukkit/ArmorStand-Limiter.svg)](https://bstats.org/plugin/bukkit/ArmorStand-Limiter/17051)
+
+
 
 # Support
 
