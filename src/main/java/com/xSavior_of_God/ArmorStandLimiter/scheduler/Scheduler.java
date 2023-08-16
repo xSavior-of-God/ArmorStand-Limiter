@@ -19,15 +19,15 @@ public interface Scheduler {
 
     public List<?> getPendingTasks();
 
-    public void runTask(Plugin plugin, Runnable task) throws IllegalArgumentException;
+    public int runTask(Plugin plugin, Runnable task) throws IllegalArgumentException;
 
-    public void runTaskAsynchronously(Plugin plugin, Runnable task) throws IllegalArgumentException;
+    public int runTaskAsynchronously(Plugin plugin, Runnable task) throws IllegalArgumentException;
 
-    public void runTaskLater(Plugin plugin, Runnable task, long delay) throws IllegalArgumentException;
+    public int runTaskLater(Plugin plugin, Runnable task, long delay) throws IllegalArgumentException;
 
-    public void runTaskLaterAsynchronously(Plugin plugin, Runnable task, long delay) throws IllegalArgumentException;
+    public int runTaskLaterAsynchronously(Plugin plugin, Runnable task, long delay) throws IllegalArgumentException;
 
-    public void runTaskTimer(Plugin plugin, Runnable task, long delay, long period) throws IllegalArgumentException;
+    public int runTaskTimer(Plugin plugin, Runnable task, long delay, long period) throws IllegalArgumentException;
 
-    public void runTaskTimerAsynchronously(Plugin plugin, Runnable task, long delay, long period) throws IllegalArgumentException;
+    public int runTaskTimerAsynchronously(Plugin plugin, Runnable task, long delay, long period) throws IllegalArgumentException;
 }

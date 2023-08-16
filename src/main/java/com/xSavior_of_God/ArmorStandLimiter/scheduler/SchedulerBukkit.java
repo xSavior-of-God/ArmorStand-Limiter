@@ -6,7 +6,6 @@ import org.bukkit.plugin.Plugin;
 import java.util.List;
 
 public class SchedulerBukkit implements Scheduler {
-
     public boolean isCurrentlyRunning(int taskId) {
         return Bukkit.getScheduler().isCurrentlyRunning(taskId);
     }
@@ -20,38 +19,38 @@ public class SchedulerBukkit implements Scheduler {
     }
 
     public boolean isQueued(int taskId) {
-        return false;
+        return Bukkit.getScheduler().isQueued(taskId);
     }
 
     public List<?> getActiveWorkers() {
-        return null;
+        return Bukkit.getScheduler().getActiveWorkers();
     }
-
 
     public List<?> getPendingTasks() {
-        return null;
+        return Bukkit.getScheduler().getPendingTasks();
     }
 
-    public void runTask(Plugin plugin, Runnable task) throws IllegalArgumentException {
-
+    public int runTask(Plugin plugin, Runnable task) throws IllegalArgumentException {
+        return Bukkit.getScheduler().runTask(plugin, task).getTaskId();
     }
 
-    public void runTaskAsynchronously(Plugin plugin, Runnable task) throws IllegalArgumentException {
-
+    public int runTaskAsynchronously(Plugin plugin, Runnable task) throws IllegalArgumentException {
+        return Bukkit.getScheduler().runTaskAsynchronously(plugin, task).getTaskId();
     }
 
-    public void runTaskLater(Plugin plugin, Runnable task, long delay) throws IllegalArgumentException {
+    public int runTaskLater(Plugin plugin, Runnable task, long delay) throws IllegalArgumentException {
+        return Bukkit.getScheduler().runTaskLater(plugin, task, delay).getTaskId();
     }
 
-    public void runTaskLaterAsynchronously(Plugin plugin, Runnable task, long delay) throws IllegalArgumentException {
-
+    public int runTaskLaterAsynchronously(Plugin plugin, Runnable task, long delay) throws IllegalArgumentException {
+        return Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, task, delay).getTaskId();
     }
 
-    public void runTaskTimer(Plugin plugin, Runnable task, long delay, long period) throws IllegalArgumentException {
-
+    public int runTaskTimer(Plugin plugin, Runnable task, long delay, long period) throws IllegalArgumentException {
+        return Bukkit.getScheduler().runTaskTimer(plugin, task, delay, period).getTaskId();
     }
 
-    public void runTaskTimerAsynchronously(Plugin plugin, Runnable task, long delay, long period) throws IllegalArgumentException {
-
+    public int runTaskTimerAsynchronously(Plugin plugin, Runnable task, long delay, long period) throws IllegalArgumentException {
+        return Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, task, delay, period).getTaskId();
     }
 }
