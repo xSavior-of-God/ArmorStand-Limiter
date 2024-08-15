@@ -22,8 +22,8 @@ ArmorStandLimit:
     Task:
       # Do you want to enable this task?
       Enabled: false
-      # How often should the check be performed? ( Recommended 5 ) >in seconds<
-      Refresh: 10
+      # How often should the check be performed? ( Recommended 30, min 10 ) >in seconds<
+      Refresh: 30
   # ...in a chunk to be removed?
   Chunk:
     # The maximum number of ArmorStands that can be in a chunk, 
@@ -34,8 +34,8 @@ ArmorStandLimit:
     Task:
       # Do you want to enable this task?
       Enabled: false
-      # How often should the check be done? ( Recommended 5 ) >in seconds<
-      Refresh: 10
+      # How often should the check be done? ( Recommended 30, min 10 ) >in seconds<
+      Refresh: 30
   # Various checks to perform before removing an ArmorStand
   Checks:
     # List of worlds where ArmorStands should not be removed
@@ -74,8 +74,9 @@ noPerms: "&cUnknown Command or you don't have permissions!"
 tooManyArmorStand: "&c&lHey! &7You can't place it here, there are more than {max} ArmorStands in this chunk!"
 
 # TPS Meter will allow you to analyze the tps every tick, 
-# if they are lower than the preset value in 'Trigger' the ArmorStands
-# will be cleared only if they are more than 'ArmorStandLimit' in a single block
+# if they are lower than the preset value in 'Trigger' the plugin
+# will trigger the checks for Chunk and Block
+# /!\ IT NOT WORKS ON FOLIA !!!
 TPSMeter:
   # Do you want to enable this feature?
   Enabled: false
@@ -93,9 +94,15 @@ Events:
   DisableArmorStandMoving:
     # Gravity
     #( This option also disables movement in the water )
-    Gravity: false
+    Gravity:
+      Enabled: false
+      # How many ArmorStands must there be in a block to prevent them from moving?
+      RequiredArmorStand: 10
     # pushed by a piston
-    Piston: false
+    Piston:
+      Enabled: false
+        # How many ArmorStands must there be in a chunk to prevent them from moving?
+      RequiredArmorStand: 10
 
 # Want to be notified whenever ArmorStands are removed?
 Notifications:

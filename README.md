@@ -1,8 +1,7 @@
 # ArmorStand-Limiter
 
-![Java CI with Maven](https://github.com/xSavior-of-God/ArmorStand-Limiter/workflows/Java%20CI%20with%20Maven/badge.svg?branch=main)
+![CD](https://github.com/xSavior-of-God/ArmorStand-Limiter/actions/workflows/cd.yml/badge.svg?branch=master&description=Cas)
 ![SpigotMC downloads](https://img.shields.io/badge/dynamic/json?color=orange&label=SpigotMC%20Downloads&query=stats.downloads&url=https%3A%2F%2Fapi.spigotmc.org%2Fsimple%2F0.1%2Findex.php%3Faction%3DgetResource%26id%3D86706&style=for-the-badge&logo=googleanalytics)
-![BuiltByBit downloads]()
 
 allows you to limit armor stands, so you can fix TPS drops caused by a high number of ArmorStands in your server!
 Can be used in all modalities and is fully and easily configurable thanks to its intuitive configuration file.
@@ -25,11 +24,12 @@ picture
 * Check TPS status and if too low check and remove the Armor Stands in a sigle block or chunk ( this check is also
   performed only on loaded chunks )
 * Ability to limit players to placing a maximum of Armor Stands per chunk
-* Ability to disable that the Armor Stand can be moved by the pistons or blocks connected to it
-* Ability to disable that Armor Stand can move in the water
+* Ability to disable that the Armor Stand can be moved by the pistons or blocks connected to it depending on the number of same chunk Armor Stands
+* Ability to disable that Armor Stand can move in the water depending on the number of same chunk Armor Stands
 * Ability to disable that Armor Stand can be spawned through dispensers
 * Customized notification ( inGame, Discord, Telegram and Console ) of when Armor Stands are removed due to limit
   violation
+* [NEW] Folia Support!
 * No Dependency!
 * Open Source!
 
@@ -44,6 +44,8 @@ picture
 
 * **/asl** - *Simple reload of the config file (Perms: `armostandlimiter.reload`)*
 * **/asl check <chunk>** - *Simple command to control how many Armor Stands there are in a chunk or location in the
+  world (Perms: `armostandlimiter.check`)*
+* **/asl clear <chunk>** - *Simple command to remove all Armor Stands there are in a chunk or location in the
   world (Perms: `armostandlimiter.check`)*
 * **/asl test** - *Simple command to test the notifications (Perms: `armostandlimiter.test`)*
 
@@ -60,4 +62,4 @@ picture
 
 # Download
 
-[![Spigotmc](https://static.spigotmc.org/img/spigot.png)](https://www.spigotmc.org/resources/armorstand-limiter.86706/)          [![mc-market](https://pbs.twimg.com/profile_images/1557308606579556352/suzgxeGs_200x200.jpg)](https://builtbybit.com/resources/18303/)
+[![Spigotmc](https://static.spigotmc.org/img/spigot.png)](https://www.spigotmc.org/resources/armorstand-limiter.86706/)          [![mc-market](https://pbs.twimg.com/profile_images/1557308606579556352/suzgxeGs_200x200.jpg)](https://builtbybit.com/resources/18303/)          [![hangar](https://avatars.githubusercontent.com/u/86071345?s=200&v=4)](https://hangar.papermc.io/xSavior_of_God/ArmorStand-Limiter)          [![modrinth](https://avatars.githubusercontent.com/u/67560307?s=200&v=4)](https://modrinth.com/plugin/armorstand-limiter)

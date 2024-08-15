@@ -61,26 +61,39 @@ public class Events implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onEntitySpawnEvent(EntitySpawnEvent e) {
-        if (!Main.EventsDisableArmorStandMovingGravity || e.isCancelled())
+        if (!Main.EventsDisableArmorStandMovingGravityEnabled || e.isCancelled())
             return;
         if (Main.ChecksDisabledWorlds.contains(e.getEntity().getWorld().getName()))
             return;
 
         Entity entity = e.getEntity();
         if (entity instanceof ArmorStand) {
-            ((ArmorStand) entity).setGravity(false);
+            int armorStandCounter = 0;
+            for (final Entity ent : entity.getLocation().getChunk().getEntities()) {
+                if(armorStandCounter > Main.EventsDisableArmorStandMovingGravityRequired)
+                    break;
+                if (ent instanceof ArmorStand && Utils.checkArmorStand((ArmorStand) ent)) {
+                    armorStandCounter++;
+                }
+            }
+            if (armorStandCounter > Main.EventsDisableArmorStandMovingGravityRequired) {
+                ((ArmorStand) entity).setGravity(false);
+            }
+
         }
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBlockPistonExtendEvent(BlockPistonExtendEvent e) {
-        if (!Main.EventsDisableArmorStandMovingPiston || e.isCancelled())
+        if (!Main.EventsDisableArmorStandMovingPistonEnabled || e.isCancelled())
             return;
         if (Main.ChecksDisabledWorlds.contains(e.getBlock().getWorld().getName()))
             return;
 
+
         Location loc = e.getBlock().getLocation();
         Location locToCheck = loc;
+
 
         if (e.getBlocks().isEmpty()) {
             switch (e.getDirection()) {
@@ -110,7 +123,7 @@ public class Events implements Listener {
             for (final Entity entity : locToCheck.getChunk().getEntities()) {
                 if (entity instanceof ArmorStand) {
                     ArmorStand arm = (ArmorStand) entity;
-                    if (Utils.checkArmorStand(arm)) continue;
+                    if (!Utils.checkArmorStand(arm)) continue;
                     final int X = entity.getLocation().getBlockX();
                     final int Y = entity.getLocation().getBlockY();
                     final int Z = entity.getLocation().getBlockZ();
@@ -153,13 +166,16 @@ public class Events implements Listener {
                     chunks.add(blockLocation.getChunk());
             }
             for (Chunk chunk : chunks) {
-                for (final Entity entity : chunk.getEntities()) {
-                    if (entity instanceof ArmorStand) {
-                        ArmorStand arm = (ArmorStand) entity;
-                        if (Utils.checkArmorStand(arm)) continue;
-                        e.setCancelled(true);
-                        return;
-                    }
+                int armorStandCounter = 0;
+                for (final Entity ent : chunk.getEntities()) {
+                    if(armorStandCounter > Main.EventsDisableArmorStandMovingPistonRequired)
+                        break;
+                    if (ent instanceof ArmorStand && Utils.checkArmorStand((ArmorStand) ent))
+                            armorStandCounter++;
+                }
+                if (armorStandCounter > Main.EventsDisableArmorStandMovingPistonRequired) {
+                    e.setCancelled(true);
+                    return;
                 }
             }
 

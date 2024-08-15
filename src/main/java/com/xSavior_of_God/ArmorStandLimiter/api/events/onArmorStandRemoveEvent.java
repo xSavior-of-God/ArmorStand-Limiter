@@ -14,7 +14,7 @@ import org.bukkit.event.HandlerList;
 public class onArmorStandRemoveEvent extends Event {
   private static final HandlerList HANDLERS = new HandlerList();
   private boolean isCancelled = false;
-  private Entity armorstand;
+  private final Entity armorstand;
   
   @Override
   public HandlerList getHandlers() {

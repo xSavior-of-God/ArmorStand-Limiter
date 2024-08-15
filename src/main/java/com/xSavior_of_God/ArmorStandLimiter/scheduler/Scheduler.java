@@ -1,5 +1,7 @@
 package com.xSavior_of_God.ArmorStandLimiter.scheduler;
 
+import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
@@ -30,4 +32,9 @@ public interface Scheduler {
     public int runTaskTimer(Plugin plugin, Runnable task, long delay, long period) throws IllegalArgumentException;
 
     public int runTaskTimerAsynchronously(Plugin plugin, Runnable task, long delay, long period) throws IllegalArgumentException;
+
+    public int runAsRegionScheduler(Plugin plugin, Location location, Runnable task, boolean isAsync) throws IllegalArgumentException;
+    public int runAsRegionScheduler(Plugin plugin, Chunk chunk, Runnable task, boolean isAsync) throws IllegalArgumentException;
+
+    public boolean isPrimaryThread();
 }

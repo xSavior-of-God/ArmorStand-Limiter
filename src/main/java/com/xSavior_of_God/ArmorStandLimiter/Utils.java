@@ -69,10 +69,16 @@ public class Utils {
         return Main.ChecksDisableIfIsInvulnerable && arm.isInvulnerable();
     }
 
+    /**
+     * Returns true if the armor stand should be removed
+     *
+     * @param  ArmorStand arm
+     * @return boolean
+     */
     public static boolean checkArmorStand(ArmorStand arm) {
         onArmorStandRemoveEvent event = new onArmorStandRemoveEvent(arm);
-        if (!Bukkit.isPrimaryThread()) {
-            Bukkit.getScheduler().runTask(Main.instance, new Runnable() {
+        if (!Main.scheduler.isPrimaryThread()) {
+            Main.scheduler.runTask(Main.instance, new Runnable() {
                 @Override
                 public void run() {
                     Bukkit.getPluginManager().callEvent(event);
@@ -80,30 +86,32 @@ public class Utils {
             });
         } else
             Bukkit.getPluginManager().callEvent(event);
+        if(event.isCancelled())
+            return false;
         if (arm.getCustomName() != null && arm.isCustomNameVisible() && Main.ChecksDisableIfNameContains != null
                 && Main.ChecksDisableIfNameContains.size() > 0
                 && Main.ChecksDisableIfNameContains.contains(arm.getCustomName().toString()))
-            return true;
-        if (Main.ChecksDisableIfNamed && (arm.getCustomName() != null && arm.getCustomName().toString() != "" && arm.isCustomNameVisible()))
-            return true;
+            return false;
+        if (Main.ChecksDisableIfNamed && (arm.getCustomName() != null && !arm.getCustomName().equals("") && arm.isCustomNameVisible()))
+            return false;
         if (Main.ChecksDisableIfHasArms && arm.hasArms())
-            return true;
+            return false;
         if (Main.ChecksDisableIfHasNotBasePlate && !arm.hasBasePlate())
-            return true;
+            return false;
         if (Main.ChecksDisableIfHasHelmet && arm.getEquipment().getHelmet() != null && arm.getEquipment().getHelmet().getType() != Material.AIR)
-            return true;
+            return false;
         if (Main.ChecksDisableIfHasChestPlate && arm.getEquipment().getChestplate() != null && arm.getEquipment().getChestplate().getType() != Material.AIR)
-            return true;
+            return false;
         if (Main.ChecksDisableIfHasLeggings && arm.getEquipment().getLeggings() != null && arm.getEquipment().getLeggings().getType() != Material.AIR)
-            return true;
+            return false;
         if (Main.ChecksDisableIfHasBoots && arm.getEquipment().getBoots() != null && arm.getEquipment().getBoots().getType() != Material.AIR)
-            return true;
+            return false;
         if (!Main.LEGACY && checkArmorStand_for113PLUS(arm))
-            return true;
+            return false;
         if (Main.ChecksDisableIfIsSmall && arm.isSmall())
-            return true;
+            return false;
         if (Main.ChecksDisableIfIsInvisible && !arm.isVisible())
-            return true;
-        return event.isCancelled();
+            return false;
+        return true;
     }
 }
