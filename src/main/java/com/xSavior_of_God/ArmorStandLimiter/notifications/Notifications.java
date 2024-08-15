@@ -63,7 +63,7 @@ public class Notifications {
                                         .replace("{max}", Main.armorStandLimitChunkTrigger + "").replace("{type}", "chunk")));
 
             if (onlinePlayerEnabled) {
-                Bukkit.getScheduler().runTask(Main.instance, new Runnable() {
+                Main.scheduler.runTask(Main.instance, new Runnable() {
 
                     @Override
                     public void run() {
@@ -102,7 +102,7 @@ public class Notifications {
                                         .replace("{max}", Main.armorStandLimitBlockTrigger + "").replace("{type}", "xyz")));
 
             if (onlinePlayerEnabled) {
-                Bukkit.getScheduler().runTask(Main.instance, new Runnable() {
+                Main.scheduler.runTask(Main.instance, new Runnable() {
 
                     @Override
                     public void run() {

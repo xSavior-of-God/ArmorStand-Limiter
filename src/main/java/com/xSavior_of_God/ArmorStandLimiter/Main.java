@@ -2,16 +2,13 @@ package com.xSavior_of_God.ArmorStandLimiter;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.xSavior_of_God.ArmorStandLimiter.metrics.Metrics;
+import com.xSavior_of_God.ArmorStandLimiter.scheduler.Scheduler;
 import com.xSavior_of_God.ArmorStandLimiter.utils.CommentedConfiguration;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,15 +24,17 @@ public class Main extends JavaPlugin {
             armorStandLimitChunkTrigger,
             armorStandLimitBlockTaskRefresh,
             armorStandLimitChunkTaskRefresh,
-            TPSMeterTrigger;
+            TPSMeterTrigger,
+            EventsDisableArmorStandMovingGravityRequired,
+            EventsDisableArmorStandMovingPistonRequired;
     public static boolean
             armorStandLimitBlockTaskEnabled,
             armorStandLimitChunkTaskEnabled,
             TPSMeterEnabled,
             LimitArmorStandPlaceForChunk,
             DisableDispenserSpawningArmorStand,
-            EventsDisableArmorStandMovingGravity,
-            EventsDisableArmorStandMovingPiston,
+            EventsDisableArmorStandMovingGravityEnabled,
+            EventsDisableArmorStandMovingPistonEnabled,
             ChecksDisableIfNamed,
             ChecksDisableIfIsInvulnerable,
             ChecksDisableIfIsInvisible,
@@ -48,33 +47,40 @@ public class Main extends JavaPlugin {
             ChecksDisableIfHasBoots,
             ChecksDisableIfHolographicDisplaysEntityPart,
             ChecksDisableIfIsModelEngineEntity,
-            LEGACY;
-    public static Map<Location, Integer> counterBlock = new HashMap<Location, Integer>();
-    public static Map<Chunk, Integer> counterChunk = new HashMap<Chunk, Integer>();
+            LEGACY,
+            isFolia;
     public static String noPerms, tooManyArmorStand;
     public static List<String> ChecksDisabledWorlds, ChecksDisableIfNameContains = new ArrayList<String>();
     public File configFile = null;
+    public static Scheduler scheduler;
 
     public void onEnable() {
         new Metrics(this, 17051);
+        isFolia = isFolia();
 
         Bukkit.getConsoleSender()
                 .sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        "\r\n" + "\r\n" + "&e /\\   _  _   _   _ &e(_  |_  _   _   _|   &f|   .  _  . |_  _  _\r\n"
-                                + "&e/--\\ |  ||| (_) |  &e__) |_ (_| | ) (_|   &f|__ | ||| | |_ (- | \r\n" + "&7v"
-                                + getDescription().getVersion() + "\r\n" + "&cCreated by xSavior_of_God \r\n" + "\r\n "));
+                        "\r\n" + "\r\n" + "&e /\\   _  _   _   _ &e(_  |_  _   _   _|   &f|   .  _  . |_  _  _&r\r\n"
+                                + "&e/--\\ |  ||| (_) |  &e__) |_ (_| | ) (_|   &f|__ | ||| | |_ (- | &r\r\n" + "&7v"
+                                + getDescription().getVersion() + "&r\r\n" + "&cCreated by xSavior_of_God &r\r\n" + "&r\r\n "));
+        if (isFolia) {
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&fFolia&e support &aEnabled&r"));
+            scheduler = new com.xSavior_of_God.ArmorStandLimiter.scheduler.SchedulerFolia(this);
+        } else {
+            scheduler = new com.xSavior_of_God.ArmorStandLimiter.scheduler.SchedulerBukkit();
+        }
 
         instance = this;
         loadConfig();
 
         if (ChecksDisableIfHolographicDisplaysEntityPart && !Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays")) {
             Bukkit.getConsoleSender()
-                    .sendMessage(ChatColor.translateAlternateColorCodes('&', "&cHolographicDisplays is not installed or is disabled."));
+                    .sendMessage(ChatColor.translateAlternateColorCodes('&', "&cHolographicDisplays is not installed or is disabled.&r"));
             ChecksDisableIfHolographicDisplaysEntityPart = false;
         }
         if (ChecksDisableIfIsModelEngineEntity && !Bukkit.getPluginManager().isPluginEnabled("ModelEngine")) {
             Bukkit.getConsoleSender()
-                    .sendMessage(ChatColor.translateAlternateColorCodes('&', "&cModelEngine is not installed or is disabled."));
+                    .sendMessage(ChatColor.translateAlternateColorCodes('&', "&cModelEngine is not installed or is disabled.&r"));
             ChecksDisableIfIsModelEngineEntity = false;
         }
 
@@ -84,13 +90,25 @@ public class Main extends JavaPlugin {
             Bukkit.getServer().getPluginManager().registerEvents((Listener) new ModelEngine(), (Plugin) this);
 
         new Notifications();
-        Checker check = new Checker();
-        check.timerTask();
+        if(isFolia) {
+            new CheckerFolia();
+        } else {
+            new Checker();
+        }
         getCommand("asl").setExecutor(new Commands());
         Bukkit.getServer().getPluginManager().registerEvents((Listener) new Events(), (Plugin) this);
         Bukkit.getConsoleSender()
                 .sendMessage(ChatColor.translateAlternateColorCodes('&', "&eArmorStand &fLimiter &aLoaded!"));
         LEGACY = Bukkit.getVersion().contains("1.8");
+    }
+
+    public static boolean isFolia() {
+        try {
+            Class.forName("io.papermc.paper.threadedregions.RegionizedServerInitEvent");
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+        return true;
     }
 
     public void loadConfig() {
@@ -109,16 +127,18 @@ public class Main extends JavaPlugin {
 
         armorStandLimitBlockTrigger = getConfig().getInt("ArmorStandLimit.Block.Trigger");
         armorStandLimitChunkTrigger = getConfig().getInt("ArmorStandLimit.Chunk.Trigger");
-        armorStandLimitBlockTaskRefresh = getConfig().getInt("ArmorStandLimit.Block.Task.Refresh");
-        armorStandLimitChunkTaskRefresh = getConfig().getInt("ArmorStandLimit.Chunk.Task.Refresh");
+        armorStandLimitBlockTaskRefresh = Math.max(getConfig().getInt("ArmorStandLimit.Block.Task.Refresh"), 10);
+        armorStandLimitChunkTaskRefresh = Math.max(getConfig().getInt("ArmorStandLimit.Chunk.Task.Refresh"), 10);
         armorStandLimitBlockTaskEnabled = getConfig().getBoolean("ArmorStandLimit.Block.Task.Enabled");
         armorStandLimitChunkTaskEnabled = getConfig().getBoolean("ArmorStandLimit.Chunk.Task.Enabled");
         TPSMeterTrigger = getConfig().getInt("TPSMeter.Trigger");
         TPSMeterEnabled = getConfig().getBoolean("TPSMeter.Enabled");
         LimitArmorStandPlaceForChunk = getConfig().getBoolean("Events.LimitArmorStandPlaceForChunk");
         DisableDispenserSpawningArmorStand = getConfig().getBoolean("Events.DisableDispenserSpawningArmorStand");
-        EventsDisableArmorStandMovingGravity = getConfig().getBoolean("Events.DisableArmorStandMoving.Gravity");
-        EventsDisableArmorStandMovingPiston = getConfig().getBoolean("Events.DisableArmorStandMoving.Piston");
+        EventsDisableArmorStandMovingGravityEnabled = getConfig().getBoolean("Events.DisableArmorStandMoving.Gravity.Enabled");
+        EventsDisableArmorStandMovingGravityRequired = getConfig().getInt("Events.DisableArmorStandMoving.Gravity.RequiredArmorStand");
+        EventsDisableArmorStandMovingPistonEnabled = getConfig().getBoolean("Events.DisableArmorStandMoving.Piston.Enabled");
+        EventsDisableArmorStandMovingPistonRequired = getConfig().getInt("Events.DisableArmorStandMoving.Piston.RequiredArmorStand");
         noPerms = getConfig().getString("noPerms");
         tooManyArmorStand = getConfig().getString("tooManyArmorStand");
         ChecksDisabledWorlds = getConfig().getStringList("ArmorStandLimit.Checks.DisabledWorlds");
