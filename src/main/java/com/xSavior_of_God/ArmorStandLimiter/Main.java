@@ -1,15 +1,13 @@
 package com.xSavior_of_God.ArmorStandLimiter;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import com.xSavior_of_God.ArmorStandLimiter.metrics.Metrics;
 import com.xSavior_of_God.ArmorStandLimiter.scheduler.Scheduler;
 import com.xSavior_of_God.ArmorStandLimiter.utils.CommentedConfiguration;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Entity;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,7 +18,7 @@ import com.xSavior_of_God.ArmorStandLimiter.notifications.Notifications;
 
 public class Main extends JavaPlugin {
     public static Main instance;
-    public static Map<Entity, Double> trackFallEntity = new HashMap<>();
+    public static Map<UUID, Double> trackFallEntity = new HashMap<>();
     public static int
             armorStandLimitBlockTrigger,
             armorStandLimitChunkTrigger,

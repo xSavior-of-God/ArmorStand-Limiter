@@ -79,7 +79,7 @@ public class Events implements Listener {
             }
             if (armorStandCounter >= Main.EventsDisableArmorStandMovingGravityRequired) {
                 if(Main.EventsDisableArmorStandMovingGravityFallBlocks > 0) {
-                    Main.trackFallEntity.put(entity, 0.0);
+                    Main.trackFallEntity.put(entity.getUniqueId(), 0.0);
                 } else {
                     ((ArmorStand) entity).setGravity(false);
                 }
