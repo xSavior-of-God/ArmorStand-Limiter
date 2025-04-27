@@ -21,6 +21,7 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class Events implements Listener {
+
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlaceArmorStand(PlayerInteractEvent e) {
         if (!Main.LimitArmorStandPlaceForChunk || e.isCancelled())
@@ -70,18 +71,23 @@ public class Events implements Listener {
         if (entity instanceof ArmorStand) {
             int armorStandCounter = 0;
             for (final Entity ent : entity.getLocation().getChunk().getEntities()) {
-                if(armorStandCounter > Main.EventsDisableArmorStandMovingGravityRequired)
+                if(armorStandCounter >= Main.EventsDisableArmorStandMovingGravityRequired)
                     break;
                 if (ent instanceof ArmorStand && Utils.checkArmorStand((ArmorStand) ent)) {
                     armorStandCounter++;
                 }
             }
-            if (armorStandCounter > Main.EventsDisableArmorStandMovingGravityRequired) {
-                ((ArmorStand) entity).setGravity(false);
+            if (armorStandCounter >= Main.EventsDisableArmorStandMovingGravityRequired) {
+                if(Main.EventsDisableArmorStandMovingGravityFallBlocks > 0) {
+                    Main.trackFallEntity.put(entity.getUniqueId(), 0.0);
+                } else {
+                    ((ArmorStand) entity).setGravity(false);
+                }
             }
-
         }
     }
+
+
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBlockPistonExtendEvent(BlockPistonExtendEvent e) {
@@ -168,12 +174,12 @@ public class Events implements Listener {
             for (Chunk chunk : chunks) {
                 int armorStandCounter = 0;
                 for (final Entity ent : chunk.getEntities()) {
-                    if(armorStandCounter > Main.EventsDisableArmorStandMovingPistonRequired)
+                    if(armorStandCounter >= Main.EventsDisableArmorStandMovingPistonRequired)
                         break;
                     if (ent instanceof ArmorStand && Utils.checkArmorStand((ArmorStand) ent))
                             armorStandCounter++;
                 }
-                if (armorStandCounter > Main.EventsDisableArmorStandMovingPistonRequired) {
+                if (armorStandCounter >= Main.EventsDisableArmorStandMovingPistonRequired) {
                     e.setCancelled(true);
                     return;
                 }

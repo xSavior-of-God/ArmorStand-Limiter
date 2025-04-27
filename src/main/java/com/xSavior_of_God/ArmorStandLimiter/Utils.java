@@ -72,7 +72,7 @@ public class Utils {
     /**
      * Returns true if the armor stand should be removed
      *
-     * @param  ArmorStand arm
+     * @param  arm Armor stand
      * @return boolean
      */
     public static boolean checkArmorStand(ArmorStand arm) {

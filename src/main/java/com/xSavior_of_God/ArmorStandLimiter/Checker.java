@@ -31,7 +31,12 @@ public class Checker {
             double TPS = 20.0;
 
             try {
-                Class<?> craftServer = Class.forName("org.bukkit.craftbukkit." + Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3] + ".CraftServer");
+                Class<?> craftServer = null;
+                try {
+                    craftServer = Class.forName("org.bukkit.craftbukkit.CraftServer");
+                } catch(Exception ignored) {
+                    craftServer = Class.forName("org.bukkit.craftbukkit." + Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3] + ".CraftServer");
+                }
                 Object getServer = craftServer.getMethod("getServer").invoke(Bukkit.getServer());
                 Field tpsField = getServer.getClass().getField("recentTps");
                 double[] tps = ((double[]) tpsField.get(getServer));

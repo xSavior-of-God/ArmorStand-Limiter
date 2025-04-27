@@ -1,8 +1,7 @@
 package com.xSavior_of_God.ArmorStandLimiter;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import com.xSavior_of_God.ArmorStandLimiter.metrics.Metrics;
 import com.xSavior_of_God.ArmorStandLimiter.scheduler.Scheduler;
@@ -19,6 +18,7 @@ import com.xSavior_of_God.ArmorStandLimiter.notifications.Notifications;
 
 public class Main extends JavaPlugin {
     public static Main instance;
+    public static Map<UUID, Double> trackFallEntity = new HashMap<>();
     public static int
             armorStandLimitBlockTrigger,
             armorStandLimitChunkTrigger,
@@ -26,6 +26,7 @@ public class Main extends JavaPlugin {
             armorStandLimitChunkTaskRefresh,
             TPSMeterTrigger,
             EventsDisableArmorStandMovingGravityRequired,
+            EventsDisableArmorStandMovingGravityFallBlocks,
             EventsDisableArmorStandMovingPistonRequired;
     public static boolean
             armorStandLimitBlockTaskEnabled,
@@ -97,6 +98,11 @@ public class Main extends JavaPlugin {
         }
         getCommand("asl").setExecutor(new Commands());
         Bukkit.getServer().getPluginManager().registerEvents((Listener) new Events(), (Plugin) this);
+        try {
+            Class.forName("io.papermc.paper.event.entity.EntityMoveEvent");
+            Bukkit.getServer().getPluginManager().registerEvents((Listener) new EventsPaper(), (Plugin) this);
+        } catch (ClassNotFoundException ignore) {
+        }
         Bukkit.getConsoleSender()
                 .sendMessage(ChatColor.translateAlternateColorCodes('&', "&eArmorStand &fLimiter &aLoaded!"));
         LEGACY = Bukkit.getVersion().contains("1.8");
@@ -137,6 +143,7 @@ public class Main extends JavaPlugin {
         DisableDispenserSpawningArmorStand = getConfig().getBoolean("Events.DisableDispenserSpawningArmorStand");
         EventsDisableArmorStandMovingGravityEnabled = getConfig().getBoolean("Events.DisableArmorStandMoving.Gravity.Enabled");
         EventsDisableArmorStandMovingGravityRequired = getConfig().getInt("Events.DisableArmorStandMoving.Gravity.RequiredArmorStand");
+        EventsDisableArmorStandMovingGravityFallBlocks = getConfig().getInt("Events.DisableArmorStandMoving.Gravity.RequiredFallBlocksBeforeBlocked");
         EventsDisableArmorStandMovingPistonEnabled = getConfig().getBoolean("Events.DisableArmorStandMoving.Piston.Enabled");
         EventsDisableArmorStandMovingPistonRequired = getConfig().getInt("Events.DisableArmorStandMoving.Piston.RequiredArmorStand");
         noPerms = getConfig().getString("noPerms");

@@ -96,8 +96,10 @@ Events:
     #( This option also disables movement in the water )
     Gravity:
       Enabled: false
-      # How many ArmorStands must there be in a block to prevent them from moving?
-      RequiredArmorStand: 10
+      # How many ArmorStands must there be in a chunk to prevent them from moving?
+      RequiredArmorStand: 1
+      # (Only for Paper and Forks!) How many Blocks can the ArmorStand fall before being blocked?
+      RequiredFallBlocksBeforeBlocked: 2
     # pushed by a piston
     Piston:
       Enabled: false

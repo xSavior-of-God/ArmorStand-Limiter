@@ -3,7 +3,6 @@ package com.xSavior_of_God.ArmorStandLimiter.scheduler;
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.Bukkit;
 
